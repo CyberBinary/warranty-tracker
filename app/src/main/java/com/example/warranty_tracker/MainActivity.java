@@ -17,7 +17,7 @@ import com.example.warranty_tracker.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-
+//example text
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
