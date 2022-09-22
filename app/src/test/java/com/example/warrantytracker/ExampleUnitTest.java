@@ -1,4 +1,4 @@
-package com.example.warranty_tracker;
+package com.example.warrantytracker;
 
 import org.junit.Test;
 
