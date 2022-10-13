@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.128" />
+        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/drawable/ic_baseline_category_24.xml" value="0.1" />
+        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.128" />
         <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/layout/activity_second.xml" value="0.25" />
         <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/layout/activity_user_add_device.xml" value="0.25" />
-        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/layout/one_line_device.xml" value="0.335" />
+        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/layout/header.xml" value="0.25" />
+        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/layout/one_line_device.xml" value="0.25" />
+        <entry key="..\:/Users/theal/OneDrive/Documents/GitHub/warranty-tracker/app/src/main/res/menu/main_menu_burger.xml" value="0.25" />
       </map>
     </option>
   </component>
