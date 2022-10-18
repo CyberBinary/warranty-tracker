@@ -45,7 +45,7 @@ public class userAddDevice extends AppCompatActivity {
 
                 //go back to the main activity
 
-                Intent intent = new Intent( userAddDevice.this, SecondActivity.class);
+                Intent intent = new Intent( userAddDevice.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +53,7 @@ public class userAddDevice extends AppCompatActivity {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( userAddDevice.this, SecondActivity.class);
+                Intent intent = new Intent( userAddDevice.this, MainActivity.class);
                 startActivity(intent);
             }
         });
