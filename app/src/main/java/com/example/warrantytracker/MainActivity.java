@@ -1,5 +1,6 @@
 package com.example.warrantytracker;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,17 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = findViewById(R.id.addDeviceButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(MainActivity.this, addDevice.class);
-                startActivity(intent);
-
-            }
-        });
-
         DB = new DBHelper(this);
         name = new ArrayList<>();
         email = new ArrayList<>();
@@ -64,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displaydata();
+
+        Button button = findViewById(R.id.addDeviceButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, addDevice.class);
+                startActivity(intent);
+
+
+            }
+
+        });
+
+
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     private void displaydata() {
         Cursor cursor = DB.getdata();
         if(cursor.getCount()==0){
-            Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "No Entry exist", Toast.LENGTH_SHORT).show();
             return;
         }
         else{
