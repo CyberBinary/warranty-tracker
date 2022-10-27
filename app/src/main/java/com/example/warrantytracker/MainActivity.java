@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button AddButton;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
@@ -55,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displaydata();
 
-        Button button = findViewById(R.id.addDeviceButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        AddButton = findViewById(R.id.addDeviceButton);
+        AddButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
