@@ -51,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             name_id = itemView.findViewById(R.id.textname);
             email_id = itemView.findViewById(R.id.textemail);
-            age_id = itemView.findViewById(R.id.textage);
+            age_id = itemView.findViewById(R.id.textdevice);
         }
     }
 }

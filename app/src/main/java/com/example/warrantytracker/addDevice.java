@@ -21,7 +21,7 @@ public class addDevice extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-        age = findViewById(R.id.age);
+        age = findViewById(R.id.device);
         insert = findViewById(R.id.btnInsert);
         view = findViewById(R.id.btnView);
 

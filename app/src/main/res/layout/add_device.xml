@@ -10,7 +10,7 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text ="Please Enter Details"
+        android:text ="Please Enter Device Details"
         android:textSize="24dp"
         android:layout_marginTop="24dp"
         />
@@ -33,12 +33,12 @@
         android:hint="E-mail"
         />
     <EditText
-        android:id="@+id/age"
+        android:id="@+id/device"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24dp"
         android:layout_below="@id/email"
-        android:hint="Age"/>
+        android:hint="Device"/>
 
     <Button
         android:id="@+id/btnInsert"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text="Insert Data"
         android:textSize="24dp"
-        android:layout_below="@+id/age"
+        android:layout_below="@+id/device"
         android:layout_marginTop="20dp"/>
     <Button
         android:id="@+id/btnView"
