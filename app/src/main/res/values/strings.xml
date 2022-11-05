@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Warranty Tracker</string>
+    <string-array name="text1">
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+    </string-array>
+    <string-array name="text2">
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+    </string-array>
 </resources>
