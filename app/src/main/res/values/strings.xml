@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Warranty Tracker</string>
+    <string name="open" >Open Navigation Drawer</string>
+    <string name="close" >Close Navigation Drawer</string>
     <string-array name="text1">
         <item>a</item>
         <item>b</item>
