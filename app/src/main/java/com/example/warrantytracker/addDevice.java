@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class addDevice extends AppCompatActivity {
-    EditText name, email, age;
+    EditText name, email, device;
     Button insert, view;
     DBHelper DB;
 
@@ -21,7 +21,7 @@ public class addDevice extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-        age = findViewById(R.id.device);
+        device = findViewById(R.id.device);
         insert = findViewById(R.id.btnInsert);
         view = findViewById(R.id.btnView);
 
@@ -39,14 +39,14 @@ public class addDevice extends AppCompatActivity {
             public void onClick(View view) {
                 String nameTXT = name.getText().toString();
                 String emailTXT = name.getText().toString();
-                String ageTXT = name.getText().toString();
+                String deviceTXT = name.getText().toString();
 
-                Boolean checkinsertdata = DB.insertuserdata(nameTXT, emailTXT, ageTXT);
+                Boolean checkinsertdata = DB.insertuserdata(nameTXT, emailTXT, deviceTXT);
                 if (checkinsertdata == true){
                     Toast.makeText(addDevice.this, "New", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(addDevice.this, "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addDevice.this, "New", Toast.LENGTH_SHORT).show();
                 }
             }
         });
