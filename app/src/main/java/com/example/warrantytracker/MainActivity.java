@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DeviceListAdapter.OnNoteListener {
     private DeviceListAdapter deviceListAdapter;
 
     DrawerLayout drawerLayout;
@@ -144,5 +145,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        //mNotes.get(position)
+        Intent intent = new Intent(this, AddDevice.class);
+        startActivity(intent);
     }
 }
