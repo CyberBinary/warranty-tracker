@@ -16,7 +16,7 @@ import com.example.warrantytracker.database.Device;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
     private DeviceListAdapter deviceListAdapter;
 
     @Override
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-        deviceListAdapter = new DeviceListAdapter(this);
+        deviceListAdapter = new DeviceListAdapter(this, this);
         recyclerView.setAdapter(deviceListAdapter);
     }
 
@@ -63,5 +63,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        //
+        //ADD FUNCTIONALITY HERE
+        //
+        Intent addDeviceIntent = new Intent(getApplicationContext(), AddDevice.class);
+        startActivity(addDeviceIntent);
+
     }
 }
