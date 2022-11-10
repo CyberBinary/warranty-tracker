@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
     private DeviceListAdapter deviceListAdapter;
 
     DrawerLayout drawerLayout;
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-        deviceListAdapter = new DeviceListAdapter(this);
+        deviceListAdapter = new DeviceListAdapter(this, this);
         recyclerView.setAdapter(deviceListAdapter);
     }
 
@@ -145,5 +145,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        //
+        //ADD FUNCTIONALITY HERE
+        //
+        Intent editDeviceIntent = new Intent(getApplicationContext(), EditDevice.class);
+        editDeviceIntent.putExtra("devicePosition", position);
+        startActivity(editDeviceIntent);
+
     }
 }
