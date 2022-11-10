@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
         drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
         drawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,32 +61,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.devices:
                     {
-                        Toast.makeText(MainActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Devices Selected", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case R.id.contact:
                     {
-                        Toast.makeText(MainActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Contact Us Selected", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case R.id.profile:
                     {
-                        Toast.makeText(MainActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Account Settings Selected", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case R.id.share:
                     {
-                        Toast.makeText(MainActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Share Selected", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case R.id.settings:
                     {
-                        Toast.makeText(MainActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Settings Selected", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case R.id.receipts:
                     {
-                        Toast.makeText(MainActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Receipts Selected", Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }
