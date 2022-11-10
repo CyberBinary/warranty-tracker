@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             }
         });
 
+
         initRecyclerView();
 
         loadDeviceList();
@@ -56,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         deviceListAdapter.setDeviceList(deviceList);
     }
 
+    private void reloadRecyclerView() {
+        initRecyclerView();
+        loadDeviceList();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == 100) {
@@ -73,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         Intent editDeviceIntent = new Intent(getApplicationContext(), EditDevice.class);
         editDeviceIntent.putExtra("devicePosition", position);
         startActivity(editDeviceIntent);
+
+        reloadRecyclerView();
 
     }
 }

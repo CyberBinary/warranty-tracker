@@ -15,4 +15,5 @@ public class Device {
 
     @ColumnInfo(name = "manufacturer")
     public String manufacturer;
+
 }

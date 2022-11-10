@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
 
 import java.util.List;
@@ -56,13 +57,18 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
             deviceName = view.findViewById(R.id.deviceName);
             deviceManufacturer = view.findViewById(R.id.deviceManufacturer);
 
+            AppDatabase db = AppDatabase.getDbInstance(context);
+            List<Device> deviceList = db.deviceDao().getAllDevices();
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                    if (recyclerViewInterface != null) {
-                        int pos = getAdapterPosition();
+                       int pos = getAdapterPosition();
+                        int deviceID = deviceList.get(pos).deviceID;
                         if (pos != RecyclerView.NO_POSITION) {
-                            recyclerViewInterface.onItemClick(pos);
+                            recyclerViewInterface.onItemClick(deviceID);
                         }
                    }
                 }
