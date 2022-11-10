@@ -70,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         //
         //ADD FUNCTIONALITY HERE
         //
-        Intent addDeviceIntent = new Intent(getApplicationContext(), AddDevice.class);
-        startActivity(addDeviceIntent);
+        Intent editDeviceIntent = new Intent(getApplicationContext(), EditDevice.class);
+        editDeviceIntent.putExtra("devicePosition", position);
+        startActivity(editDeviceIntent);
 
     }
 }
