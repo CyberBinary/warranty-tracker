@@ -16,4 +16,10 @@ public class Device {
     @ColumnInfo(name = "manufacturer")
     public String manufacturer;
 
+    @ColumnInfo(name = "serial_number")
+    public String deviceSerial;
+
+    @ColumnInfo(name = "date_of_purchase")
+    public String deviceDateOfPurchase;
+
 }
