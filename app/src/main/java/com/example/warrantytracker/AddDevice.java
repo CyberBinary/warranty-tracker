@@ -1,6 +1,7 @@
 package com.example.warrantytracker;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
 
 public class AddDevice extends AppCompatActivity {
+    public Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,6 @@ public class AddDevice extends AppCompatActivity {
         device.deviceName = deviceName;
         device.manufacturer = deviceManufacturer;
         db.deviceDao().insertDevice(device);
-
         finish();
     }
 }

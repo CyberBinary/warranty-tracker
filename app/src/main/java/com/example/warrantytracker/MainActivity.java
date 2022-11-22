@@ -21,24 +21,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button addDevice = findViewById(R.id.addDevice);
         addDevice.setOnClickListener(new View.OnClickListener() {
-
+            //google bind shit to anonymous function & callbacks
             public void onClick(View v) {
                 System.out.println("Button Clicked");
 
                 Intent addDeviceIntent = new Intent(getApplicationContext(), AddDevice.class);
                 startActivity(addDeviceIntent);
+
+                deviceListAdapter.update();
+                deviceListAdapter.notifyDataSetChanged();
             }
         });
-
 
         initRecyclerView();
 
         loadDeviceList();
+        //deviceListAdapter.update();
     }
 
     private void initRecyclerView() {
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
         deviceListAdapter = new DeviceListAdapter(this, this);
+        deviceListAdapter.update();
         recyclerView.setAdapter(deviceListAdapter);
     }
 
@@ -55,20 +60,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         List<Device> deviceList = db.deviceDao().getAllDevices();
         deviceListAdapter.setDeviceList(deviceList);
-    }
-
-    private void reloadRecyclerView() {
-        initRecyclerView();
-        loadDeviceList();
+        //
+        //tried adding this but it didn't work
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(deviceListAdapter);
+        deviceListAdapter.update();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == 100) {
             loadDeviceList();
+            deviceListAdapter.update();
         }
-
         super.onActivityResult(requestCode, resultCode, data);
+        loadDeviceList();
+        deviceListAdapter.update();
     }
 
     @Override
@@ -80,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         editDeviceIntent.putExtra("devicePosition", position);
         startActivity(editDeviceIntent);
 
-        reloadRecyclerView();
+        deviceListAdapter.notifyItemChanged(position);
+        deviceListAdapter.update();
+
 
     }
 }

@@ -15,7 +15,6 @@ public class EditDevice extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_device);
-
         //Pulls fields from add_device.xml
         final EditText deviceNameInput = findViewById(R.id.nameInput);
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
@@ -27,6 +26,8 @@ public class EditDevice extends AppCompatActivity{
             }
         });
     }
+
+
 
     //takes device input pulled above and saves it to the database
     private void editDevice(String deviceName, String deviceManufacturer){

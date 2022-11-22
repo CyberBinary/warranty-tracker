@@ -7,18 +7,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
+
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.MyViewHolder>{
     private final RecyclerViewInterface recyclerViewInterface;
 
     private Context context;
+
     private List<Device> deviceList;
+
     public DeviceListAdapter(Context context, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -29,11 +38,18 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         notifyDataSetChanged();
     }
 
+    public void update() {
+        AppDatabase db = AppDatabase.getDbInstance(context);
+        deviceList = db.deviceDao().getAllDevices();
+        this.deviceList.clear();
+        this.deviceList.addAll(db.deviceDao().getAllDevices());
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public DeviceListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.recycler_view_row, parent, false);
-
         return new MyViewHolder(view, recyclerViewInterface);
     }
 
