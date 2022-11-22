@@ -29,6 +29,13 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         notifyDataSetChanged();
     }
 
+    public void update() {
+        AppDatabase db = AppDatabase.getDbInstance(context);
+        List<Device> deviceList = db.deviceDao().getAllDevices();
+        this.deviceList = deviceList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public DeviceListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

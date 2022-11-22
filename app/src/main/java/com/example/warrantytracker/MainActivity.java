@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
                 Intent addDeviceIntent = new Intent(getApplicationContext(), AddDevice.class);
                 startActivity(addDeviceIntent);
+                deviceListAdapter.update();
+                deviceListAdapter.notifyDataSetChanged();
             }
         });
 
@@ -58,17 +60,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     private void reloadRecyclerView() {
-        initRecyclerView();
-        loadDeviceList();
+        deviceListAdapter.update();
+        deviceListAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == 100) {
             loadDeviceList();
+            deviceListAdapter.update();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+        deviceListAdapter.update();
     }
 
     @Override
@@ -80,7 +84,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         editDeviceIntent.putExtra("devicePosition", position);
         startActivity(editDeviceIntent);
 
-        reloadRecyclerView();
+        //reloadRecyclerView();
+
+        deviceListAdapter.update();
+        deviceListAdapter.notifyDataSetChanged();
 
     }
 }
