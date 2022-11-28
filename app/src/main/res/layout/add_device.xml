@@ -57,15 +57,17 @@
         app:layout_constraintVertical_bias="0"
         android:background="@drawable/rounded_edit_text"/>
 
-    <EditText
+    <Button
         android:id="@+id/dateOfPurchaseInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
-        android:hint="Date of Purchase"
-        android:inputType="textPersonName"
+        android:text="JAN 01 2022"
+        android:textColor="@color/black"
+        android:onClick="openDatePicker"
+        style="?android:spinnerStyle"
         android:minWidth="200dp"
         android:minHeight="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
