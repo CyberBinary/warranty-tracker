@@ -2,8 +2,10 @@ package com.example.warrantytracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -64,7 +66,8 @@ public class EditDevice extends AppCompatActivity{
         device.deviceSerial = deviceSerial;
         device.deviceDateOfPurchase = deviceDateOfPurchase;
         db.deviceDao().updateDevice(device);
-
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
             public void onClick(View v) {
                 System.out.println("Button Clicked");
-
+                //DEPRECATED API, UPDATE TO ACTIVITY RESULT API IN FUTURE
                 Intent addDeviceIntent = new Intent(getApplicationContext(), AddDevice.class);
-                startActivity(addDeviceIntent);
+                startActivityForResult(addDeviceIntent, 1);
                 deviceListAdapter.update();
                 deviceListAdapter.notifyDataSetChanged();
             }
@@ -72,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                deviceListAdapter.update();
+            }
+        }
         deviceListAdapter.update();
     }
 
@@ -82,7 +88,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         //
         Intent editDeviceIntent = new Intent(getApplicationContext(), EditDevice.class);
         editDeviceIntent.putExtra("devicePosition", position);
-        startActivity(editDeviceIntent);
+        //DEPRECATED API, UPDATE TO ACTIVITY RESULT API AT LATER DATE
+        int LAUNCH_EDIT_DEVICE = 1;
+        startActivityForResult(editDeviceIntent, LAUNCH_EDIT_DEVICE);
 
         //reloadRecyclerView();
 

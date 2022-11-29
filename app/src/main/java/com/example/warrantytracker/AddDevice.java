@@ -1,8 +1,10 @@
 package com.example.warrantytracker;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.format.DateUtils;
@@ -46,13 +48,13 @@ public class AddDevice extends AppCompatActivity {
             }
         });
 
-        Button linkButton = findViewById(R.id.saveButton);
+        /*Button linkButton = findViewById(R.id.saveButton);
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        }); COMMENTING THIS OUT TO GET ADD DEVICE WORKING - NEEDS NEW findViewById!! */
 
 
     }
@@ -134,7 +136,8 @@ public class AddDevice extends AppCompatActivity {
         device.deviceSerial = deviceSerial;
         device.deviceDateOfPurchase = deviceDateOfPurchase;
         db.deviceDao().insertDevice(device);
-
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
 }
