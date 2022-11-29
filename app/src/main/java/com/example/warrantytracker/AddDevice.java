@@ -1,4 +1,7 @@
 package com.example.warrantytracker;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -8,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -48,15 +52,30 @@ public class AddDevice extends AppCompatActivity {
             }
         });
 
-        /*Button linkButton = findViewById(R.id.saveButton);
+        Button linkButton = findViewById(R.id.linkButton);
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            // The Saleena pop-off section
             }
-        }); COMMENTING THIS OUT TO GET ADD DEVICE WORKING - NEEDS NEW findViewById!! */
+        });
 
 
+    }
+
+    //takes device input pulled above and saves it to the database
+    private void saveNewDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+
+        Device device = new Device();
+        device.deviceName = deviceName;
+        device.manufacturer = deviceManufacturer;
+        device.deviceSerial = deviceSerial;
+        device.deviceDateOfPurchase = deviceDateOfPurchase;
+        db.deviceDao().insertDevice(device);
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 
     private String getTodaysDate() {
@@ -125,19 +144,18 @@ public class AddDevice extends AppCompatActivity {
     public void openDatePicker(View view){
         datePickerDialog.show();
     }
-
-    //takes device input pulled above and saves it to the database
-    private void saveNewDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-
-        Device device = new Device();
-        device.deviceName = deviceName;
-        device.manufacturer = deviceManufacturer;
-        device.deviceSerial = deviceSerial;
-        device.deviceDateOfPurchase = deviceDateOfPurchase;
-        db.deviceDao().insertDevice(device);
-        Intent returnIntent = new Intent();
-        setResult(Activity.RESULT_OK, returnIntent);
-        finish();
-    }
+    /*private void launchPhotoPicker() {
+        //Adding photo picker
+        ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    if (uri != null) {
+                        Log.d("PhotoPicker", "Selected URI: " + uri);
+                    } else {
+                        Log.d("PhotoPicker", "No media selected");
+                    }
+                });
+        pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    } */
 }

@@ -52,6 +52,13 @@ public class EditDevice extends AppCompatActivity{
                 editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString());
             }
         });
+        Button linkButton = findViewById(R.id.linkButton);
+        linkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // The Saleena pop-off section
+            }
+        });
     }
 
 
