@@ -155,7 +155,7 @@ public class AddDevice extends AppCompatActivity {
                     }
                 });
         pickMedia.launch(new PickVisualMediaRequest.Builder()
-                .setMediaType(PickVisualMedia.ImageOnly.INSTANCE)
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                 .build());
     } */
 }
