@@ -144,7 +144,7 @@ public class AddDevice extends AppCompatActivity {
     public void openDatePicker(View view){
         datePickerDialog.show();
     }
-    /*private void launchPhotoPicker() {
+    private void launchPhotoPicker() {
         //Adding photo picker
         ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
@@ -157,5 +157,5 @@ public class AddDevice extends AppCompatActivity {
         pickMedia.launch(new PickVisualMediaRequest.Builder()
                 .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                 .build());
-    } */
+    }
 }
