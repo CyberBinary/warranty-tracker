@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
@@ -59,6 +60,9 @@ public class AddDevice extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             // The Saleena pop-off section
+                String url = "https://www.lg.com/us/support/repair-service/schedule-repair-continued";
+                Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(urlIntent);
             }
         });
         ImageButton imageButton = findViewById(R.id.imageButton);
