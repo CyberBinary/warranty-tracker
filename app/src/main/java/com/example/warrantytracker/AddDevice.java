@@ -1,7 +1,5 @@
 package com.example.warrantytracker;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -45,6 +43,8 @@ public class AddDevice extends AppCompatActivity {
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
         final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+        final Button linkButton = findViewById(R.id.linkButton);
+        linkButton.setVisibility(View.GONE);
 
         Button saveButton = findViewById(R.id.saveButton);
 
@@ -55,7 +55,7 @@ public class AddDevice extends AppCompatActivity {
             }
         });
 
-        Button linkButton = findViewById(R.id.linkButton);
+        /*Button linkButton = findViewById(R.id.linkButton);
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,7 @@ public class AddDevice extends AppCompatActivity {
                 //startActivity(urlIntent);
 
             }
-        });
+        }); */
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +172,7 @@ public class AddDevice extends AppCompatActivity {
         pickMedia.launch(new PickVisualMediaRequest.Builder()
                 .setMediaType(mediaType)
                 .build()); */
-        final Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        //final Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
 
     }
 }
