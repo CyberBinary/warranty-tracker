@@ -60,9 +60,10 @@ public class AddDevice extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             // The Saleena pop-off section
-                String url = "https://www.lg.com/us/support/repair-service/schedule-repair-continued";
-                Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(urlIntent);
+                //String url = "https://www.lg.com/us/support/repair-service/schedule-repair-continued";
+                //Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                //startActivity(urlIntent);
+
             }
         });
         ImageButton imageButton = findViewById(R.id.imageButton);
