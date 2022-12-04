@@ -10,12 +10,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.warrantytracker.database.AppDatabase;
@@ -57,6 +59,13 @@ public class AddDevice extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             // The Saleena pop-off section
+            }
+        });
+        ImageButton imageButton = findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchPhotoPicker();
             }
         });
 
@@ -144,9 +153,9 @@ public class AddDevice extends AppCompatActivity {
     public void openDatePicker(View view){
         datePickerDialog.show();
     }
-    /*private void launchPhotoPicker() {
+    private void launchPhotoPicker() {
         //Adding photo picker
-        ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+        /*ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                     if (uri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
@@ -154,8 +163,11 @@ public class AddDevice extends AppCompatActivity {
                         Log.d("PhotoPicker", "No media selected");
                     }
                 });
+        ActivityResultContracts.PickVisualMedia.VisualMediaType mediaType = (ActivityResultContracts.PickVisualMedia.VisualMediaType) ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE;
         pickMedia.launch(new PickVisualMediaRequest.Builder()
-                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                .build());
-    } */
+                .setMediaType(mediaType)
+                .build()); */
+        final Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+
+    }
 }
