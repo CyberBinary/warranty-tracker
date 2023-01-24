@@ -57,7 +57,6 @@ public class EditDevice extends AppCompatActivity{
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // The Saleena pop-off section
                 Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
                 webViewIntent.putExtra("devicePosition", position);
                 //DEPRECATED API, UPDATE TO ACTIVITY RESULT API AT LATER DATE

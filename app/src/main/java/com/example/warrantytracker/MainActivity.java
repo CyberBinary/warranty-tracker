@@ -83,17 +83,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onItemClick(int position) {
-        //
-        //ADD FUNCTIONALITY HERE
-        //
         Intent editDeviceIntent = new Intent(getApplicationContext(), EditDevice.class);
         editDeviceIntent.putExtra("devicePosition", position);
         //DEPRECATED API, UPDATE TO ACTIVITY RESULT API AT LATER DATE
         int LAUNCH_EDIT_DEVICE = 1;
         startActivityForResult(editDeviceIntent, LAUNCH_EDIT_DEVICE);
-
-        //reloadRecyclerView();
-
         deviceListAdapter.update();
         deviceListAdapter.notifyDataSetChanged();
 
