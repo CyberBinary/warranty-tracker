@@ -20,7 +20,14 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.web_view);
 
         WebView webView = findViewById(R.id.webView);
-        webView.loadUrl("https://www.lg.com/us/support/repair-service/schedule-repair-continued");
+        //////////////////////////////
+        //   ADD URLS TO LOAD HERE
+        ////////////////////////////////
+        switch (device.manufacturer.toLowerCase()) {
+            case "lg":
+                webView.loadUrl("https://www.lg.com/us/support/repair-service/schedule-repair-continued");
+                break;
+        }
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -32,10 +39,17 @@ public class WebViewActivity extends AppCompatActivity {
 
 
             public void onPageFinished(WebView view, String url) {
-                webView.loadUrl("javascript:(function() { document.getElementById('search-keyword').value = '" + device.deviceName + "'; ;})()");
-                webView.loadUrl("javascript:(function() { document.getElementById('serialNumber').value = '" + device.deviceSerial + "'; ;})()");
-                webView.loadUrl("javascript:(function() { document.getElementById('purchasedDate').value = '" + device.deviceDateOfPurchase + "'; ;})()");
-                System.out.println("AUTOFILL");
+                ////////////////////////////////
+                //     ADD WEBSITE JAVASCRIPT FUNCTIONALITY HERE
+                ///////////////////////////////////////////////
+                switch (device.manufacturer.toLowerCase()) {
+                    case "lg":
+                        webView.loadUrl("javascript:(function() { document.getElementById('search-keyword').value = '" + device.deviceName + "'; ;})()");
+                        webView.loadUrl("javascript:(function() { document.getElementById('serialNumber').value = '" + device.deviceSerial + "'; ;})()");
+                        webView.loadUrl("javascript:(function() { document.getElementById('purchasedDate').value = '" + device.deviceDateOfPurchase + "'; ;})()");
+                        System.out.println("AUTOFILL");
+                        break;
+                }
             }
         });
     }
