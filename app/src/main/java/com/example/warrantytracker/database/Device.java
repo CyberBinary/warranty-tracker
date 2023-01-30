@@ -4,6 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/////////////////////////////////////////////////////
+// Device properties are CREATED here
+// ID, Name, manufacturer, serial number, and date of purchace
+/////////////////////////////////////////////////////
+
 @Entity
 public class Device {
 

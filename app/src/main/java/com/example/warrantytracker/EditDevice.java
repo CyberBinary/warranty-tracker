@@ -22,6 +22,11 @@ public class EditDevice extends AppCompatActivity{
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
 
+    //////////////////////////////////////////////
+    // On create, loads add_device.xml layout
+    // creates and populates text inputs, creates buttons
+    /////////////////////////////////////////////
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +72,9 @@ public class EditDevice extends AppCompatActivity{
     }
 
 
-
+    //////////////////////////////////////////////////////////////
     //takes device input pulled above and saves it to the database
+    //////////////////////////////////////////////////////////////
     private void editDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         int position = getIntent().getIntExtra("devicePosition", 0);

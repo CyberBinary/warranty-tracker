@@ -20,6 +20,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
     private DeviceListAdapter deviceListAdapter;
 
+    /////////////////////////////////////////////
+    // On create loads activity_main.xml layout
+    // creates button to add device on click
+    // initializes recyclerview and loads the device list
+    /////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
