@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ///////////////////////////////////////////////////////
+        // Button function to add device
+        // Button will take you to addDevice page
+        ///////////////////////////////////////////////////////
+
         Button addDevice = findViewById(R.id.addDevice);
         addDevice.setOnClickListener(new View.OnClickListener() {
 
@@ -43,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         loadDeviceList();
     }
+
+    //////////////////////////////////////////////////
+    // Recycler view format.
+    // Device list items are displayed in a recycler view
+    /////////////////////////////////////////////////
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -81,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         deviceListAdapter.update();
     }
 
+
+    /////////////////////////////////////////////
+    // click on text view boxes to edit
+    // the list
+    ////////////////////////////////////////////
     @Override
     public void onItemClick(int position) {
         Intent editDeviceIntent = new Intent(getApplicationContext(), EditDevice.class);

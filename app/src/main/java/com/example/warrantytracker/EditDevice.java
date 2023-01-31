@@ -35,7 +35,10 @@ public class EditDevice extends AppCompatActivity{
         int position = getIntent().getIntExtra("devicePosition", 0);
         Device device = db.deviceDao().loadDeviceById(position);
 
+        //////////////////////////////////////
         //Pulls fields from add_device.xml
+        //
+        /////////////////////////////////////
         final EditText deviceNameInput = findViewById(R.id.nameInput);
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
@@ -45,6 +48,10 @@ public class EditDevice extends AppCompatActivity{
         deviceSerialInput.setText(device.deviceSerial);
         deviceDateOfPurchaseInput.setText(device.deviceDateOfPurchase);
 
+        ///////////////////////
+        // save button function
+        //
+        ///////////////////////
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +74,10 @@ public class EditDevice extends AppCompatActivity{
     }
 
 
-
+    //////////////////////////////////////////////////////////////
     //takes device input pulled above and saves it to the database
+    //
+    /////////////////////////////////////////////////////////////////
     private void editDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         int position = getIntent().getIntExtra("devicePosition", 0);
@@ -111,6 +120,11 @@ public class EditDevice extends AppCompatActivity{
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
 
     }
+
+    ////////////////////////////////////
+    // Format for the Calendar date shown
+    // on the recycler list
+    ///////////////////////////////////
 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;

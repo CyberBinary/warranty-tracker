@@ -34,11 +34,17 @@ public class AddDevice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_device);
 
+        /////////////////////////////////////////////////////
+        // date picker button
+        ////////////////////////////////////////////////////
         intDatePicker();
         dateButton = findViewById(R.id.dateOfPurchaseInput);
         dateButton.setText(getTodaysDate());
 
+        ///////////////////////////////////////
         //Pulls fields from add_device.xml
+        //
+        //////////////////////////////////////
         final EditText deviceNameInput = findViewById(R.id.nameInput);
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
@@ -66,6 +72,8 @@ public class AddDevice extends AppCompatActivity {
 
             }
         }); */
+
+
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +84,10 @@ public class AddDevice extends AppCompatActivity {
 
 
     }
-
+    ////////////////////////////////////////////////////////////////
     //takes device input pulled above and saves it to the database
+    //
+    /////////////////////////////////////////////////////////////////
     private void saveNewDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
@@ -92,6 +102,11 @@ public class AddDevice extends AppCompatActivity {
         finish();
     }
 
+    /////////////////////////////////////
+    // Sets the current date automatically
+    // to the date text box.
+    /////////////////////////////////////
+
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -101,6 +116,10 @@ public class AddDevice extends AppCompatActivity {
         return makeDateString(day, month, year);
     }
 
+    /////////////////////////////////////
+    // function for the date picker button
+    //
+    ////////////////////////////////////
     private void intDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -121,6 +140,10 @@ public class AddDevice extends AppCompatActivity {
 
     }
 
+    ////////////////////////////////////
+    // Format for the date shown
+    // on the recycler list
+    ///////////////////////////////////
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
@@ -154,6 +177,7 @@ public class AddDevice extends AppCompatActivity {
         //default
         return "JAN";
     }
+
 
     public void openDatePicker(View view){
         datePickerDialog.show();
