@@ -10,6 +10,12 @@ import java.util.List;
 
 import com.example.warrantytracker.database.Device;
 
+///////////////////////////////////////
+// Methods by which device data entries are accessed
+// get all devices, load device by id, insert, update, delete (though functionality
+// needs to be added on MainActivity)
+//////////////////////////////////////////
+
 @Dao
 public interface DeviceDao {
     @Query("SELECT * FROM device")

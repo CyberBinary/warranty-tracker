@@ -37,7 +37,10 @@ public class WebViewActivity extends AppCompatActivity {
                 return true;
             }
 
-
+            //////////////////////////////////////////////////////
+            // After page finished loading, runs javascript injection
+            // YOU NEED TO UPDATE WHEN ADDING DEVICE PROPERTIES
+            /////////////////////////////////////////////////////
             public void onPageFinished(WebView view, String url) {
                 ////////////////////////////////
                 //     ADD WEBSITE JAVASCRIPT FUNCTIONALITY HERE

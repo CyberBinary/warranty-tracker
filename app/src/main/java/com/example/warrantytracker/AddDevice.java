@@ -29,6 +29,10 @@ public class AddDevice extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
 
+    //////////////////////////////////////////////
+    // On create, loads add_device.xml layout
+    // creates text inputs, creates buttons
+    /////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +186,10 @@ public class AddDevice extends AppCompatActivity {
     public void openDatePicker(View view){
         datePickerDialog.show();
     }
+
+    ///////////////////////////////////////////////////
+    // UNFINISHED PHOTO PICKER
+    //////////////////////////////////////////////////
     private void launchPhotoPicker() {
         //Adding photo picker
         /*ActivityResultLauncher<PickVisualMediaRequest> pickMedia =

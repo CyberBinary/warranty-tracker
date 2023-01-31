@@ -17,10 +17,15 @@ import com.example.warrantytracker.database.Device;
 
 import java.util.Calendar;
 
-public class EditDevice extends AppCompatActivity{
+public class EditDevice extends AppCompatActivity {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+
+    //////////////////////////////////////////////
+    // On create, loads add_device.xml layout
+    // creates and populates text inputs, creates buttons
+    /////////////////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class EditDevice extends AppCompatActivity{
         Device device = db.deviceDao().loadDeviceById(position);
 
         //////////////////////////////////////
-        //Pulls fields from add_device.xml
+        // Pulls fields from add_device.xml
         //
         /////////////////////////////////////
         final EditText deviceNameInput = findViewById(R.id.nameInput);
@@ -56,7 +61,8 @@ public class EditDevice extends AppCompatActivity{
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString());
+                editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(),
+                        deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString());
             }
         });
         Button linkButton = findViewById(R.id.linkButton);
@@ -66,19 +72,19 @@ public class EditDevice extends AppCompatActivity{
             public void onClick(View view) {
                 Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
                 webViewIntent.putExtra("devicePosition", position);
-                //DEPRECATED API, UPDATE TO ACTIVITY RESULT API AT LATER DATE
+                // DEPRECATED API, UPDATE TO ACTIVITY RESULT API AT LATER DATE
                 int LAUNCH_WEB_VIEW = 1;
                 startActivityForResult(webViewIntent, LAUNCH_WEB_VIEW);
             }
         });
     }
 
-
     //////////////////////////////////////////////////////////////
-    //takes device input pulled above and saves it to the database
+    // takes device input pulled above and saves it to the database
     //
     /////////////////////////////////////////////////////////////////
-    private void editDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
+    private void editDevice(String deviceName, String deviceManufacturer, String deviceSerial,
+            String deviceDateOfPurchase) {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         int position = getIntent().getIntExtra("devicePosition", 0);
         Device device = db.deviceDao().loadDeviceById(position);
@@ -131,36 +137,36 @@ public class EditDevice extends AppCompatActivity{
     }
 
     private String getMonthFormat(int month) {
-        if(month == 1)
+        if (month == 1)
             return "JAN";
-        if(month == 2)
+        if (month == 2)
             return "FEB";
-        if(month == 3)
+        if (month == 3)
             return "MAR";
-        if(month == 4)
+        if (month == 4)
             return "APR";
-        if(month == 5)
+        if (month == 5)
             return "MAY";
-        if(month == 6)
+        if (month == 6)
             return "JUN";
-        if(month == 7)
+        if (month == 7)
             return "JUL";
-        if(month == 8)
+        if (month == 8)
             return "AUG";
-        if(month == 9)
+        if (month == 9)
             return "SEP";
-        if(month == 10)
+        if (month == 10)
             return "OCT";
-        if(month == 11)
+        if (month == 11)
             return "NOV";
-        if(month == 12)
+        if (month == 12)
             return "DEC";
 
-        //default
+        // default
         return "JAN";
     }
 
-    public void openDatePicker(View view){
+    public void openDatePicker(View view) {
         datePickerDialog.show();
     }
 

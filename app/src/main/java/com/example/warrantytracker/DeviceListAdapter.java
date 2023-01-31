@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.MyViewHolder>{
     private final RecyclerViewInterface recyclerViewInterface;
-
+    // i think the context is used to create a deviceListAdapter state??
     private Context context;
     private List<Device> deviceList;
     public DeviceListAdapter(Context context, RecyclerViewInterface recyclerViewInterface) {
@@ -24,17 +24,29 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
+    ////////////////////////////////////
+    // sets the adapter's deviceList to the imported deviceList
+    ////////////////////////////////////////////
     public void setDeviceList(List<Device> deviceList) {
         this.deviceList = deviceList;
         notifyDataSetChanged();
     }
-
+    //////////////////////////////////////////////
+    // updates the db by getting the db, getting all the devices,
+    // setting that list as the deviceList
+    // notifying that the dataset has changed
+    ////////////////////////////////////////////
     public void update() {
         AppDatabase db = AppDatabase.getDbInstance(context);
         List<Device> deviceList = db.deviceDao().getAllDevices();
         this.deviceList = deviceList;
         notifyDataSetChanged();
     }
+
+    ///////////////////////////////////
+    // creates the recyclerview appearance from recycler_view_row.xml
+    // returns the MyViewHolder
+    //////////////////////////////////////////////////////////
 
     @NonNull
     @Override
@@ -44,17 +56,28 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         return new MyViewHolder(view, recyclerViewInterface);
     }
 
+    /////////////////////////////////////////////////////////////////
+    // sets the deviceName on the card to the correct device ID's devicename
+    // "     " manufacturer "                                              "
     @Override
     public void onBindViewHolder(@NonNull DeviceListAdapter.MyViewHolder holder, int position) {
         holder.deviceName.setText(this.deviceList.get(position).deviceName);
         holder.deviceManufacturer.setText(this.deviceList.get(position).manufacturer);
     }
 
+    ///////////////////////////////
+    // gets deviceList's size
+    ///////////////////////////////
     @Override
     public int getItemCount() {
         return this.deviceList.size();
     }
 
+    /////////////////////////////////////////////////////////////
+    // populates the devices I think
+    // places an OnClickListener on the cards which gets the device's position
+    // this is used in calling editDevice
+    ///////////////////////////////////////////////////////////////////
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView deviceName;
         TextView deviceManufacturer;
