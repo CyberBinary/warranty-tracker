@@ -48,7 +48,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         loadDeviceList();
     }
-
+    /////////////////////////////
+    // Loads the recyclerview
+    // sets the layoutManager to recyclerview
+    // sets dividers
+    // sets the deviceListAdapter, then sets the recyclerview to the adapter
+    /////////////////////////////////
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -58,17 +63,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         deviceListAdapter = new DeviceListAdapter(this, this);
         recyclerView.setAdapter(deviceListAdapter);
     }
-
+    //////////////////////////////////////////////////
+    // Loads the db deviceList into the deviceListAdapter
+    /////////////////////////////////////////////////
     private void loadDeviceList() {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         List<Device> deviceList = db.deviceDao().getAllDevices();
         deviceListAdapter.setDeviceList(deviceList);
     }
-
+    ////////////////////////////////////
+    // reloads the recyclerview
+    //////////////////////////////////
     private void reloadRecyclerView() {
         deviceListAdapter.update();
         deviceListAdapter.notifyDataSetChanged();
     }
+
+    //////////////////////////////////////////
+    // reloads the deviceList when a result is retrieved
+    // result obtained from adding or editing a device AND saving it
+    //////////////////////////////////////////
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -85,6 +99,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
         deviceListAdapter.update();
     }
+
+    ////////////////////////////////////
+    // launches the edit device page on clicking a device
+    // gets the device's position and passes it to the editDevice page
+    // updates the deviceListAdapter once completed
+    ////////////////////////////////////////
 
     @Override
     public void onItemClick(int position) {
