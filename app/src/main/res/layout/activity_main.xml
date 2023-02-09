@@ -28,4 +28,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical" />
+
+    <Button
+        android:id="@+id/sortManufacturer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sortManu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addDevice"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sortName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sortName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addDevice" />
 </androidx.constraintlayout.widget.ConstraintLayout>

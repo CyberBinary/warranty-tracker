@@ -47,7 +47,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 deviceListAdapter.notifyDataSetChanged();
             }
         });
+        Button sortName = findViewById(R.id.sortName);
+        sortName.setOnClickListener(new View.OnClickListener() {
 
+            public void onClick(View v) {
+                System.out.println("Button Clicked");
+                sortDeviceList(0);
+            }
+        });
+        Button sortManufacturer = findViewById(R.id.sortManufacturer);
+        sortManufacturer.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                System.out.println("Button Clicked");
+                sortDeviceList(1);
+            }
+        });
         initRecyclerView();
 
         loadDeviceList();
@@ -91,6 +106,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     // result obtained from adding or editing a device AND saving it
     //////////////////////////////////////////
 
+    private void sortDeviceList(int setting) {
+        AppDatabase db = AppDatabase.getDbInstance((this.getApplicationContext()));
+        List<Device> deviceList;
+        switch (setting) {
+            case 0: //SORT BY NAME
+                deviceList = db.deviceDao().sortDevicesByName();
+                deviceListAdapter.setDeviceList(deviceList);
+                break;
+            case 1:
+                deviceList = db.deviceDao().sortDevicesByManufacturer();
+                deviceListAdapter.setDeviceList(deviceList);
+                break;
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 100) {
@@ -122,6 +152,5 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         startActivityForResult(editDeviceIntent, LAUNCH_EDIT_DEVICE);
         deviceListAdapter.update();
         deviceListAdapter.notifyDataSetChanged();
-
     }
 }

@@ -21,6 +21,11 @@ public interface DeviceDao {
     @Query("SELECT * FROM device")
     List<Device> getAllDevices();
 
+    @Query("Select * FROM device ORDER BY device_name")
+    List<Device> sortDevicesByName();
+
+    @Query("Select * FROM device ORDER BY manufacturer")
+    List<Device> sortDevicesByManufacturer();
 
     @Query("Select * FROM device WHERE deviceID = :id")
     Device loadDeviceById(int id);
