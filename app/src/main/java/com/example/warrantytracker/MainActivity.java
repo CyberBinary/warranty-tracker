@@ -1,8 +1,11 @@
 package com.example.warrantytracker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,11 +17,13 @@ import android.widget.Button;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
     private DeviceListAdapter deviceListAdapter;
+    ConstraintLayout constraintLayout;
 
     /////////////////////////////////////////////
     // On create loads activity_main.xml layout
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        constraintLayout = findViewById(R.id.constraint_layout);
 
         ///////////////////////////////////////////////////////
         // Button function to add device
@@ -51,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         initRecyclerView();
 
         loadDeviceList();
+
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView();
     }
 
     /////////////////////////////
@@ -124,4 +133,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         deviceListAdapter.notifyDataSetChanged();
 
     }
+
+    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            Snackbar snackbar = Snackbar.make(constraintLayout, "Item Deleted!", Snackbar.LENGTH_LONG);
+            snackbar.show();
+
+            AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+            List<Device> deviceList = db.deviceDao().delete();
+            deviceListAdapter.setDeviceList(deviceList);
+        }
+    };
+    @Override
+    public int onDeviceSwipe(int position) {
+        return position;
+    }
+
 }

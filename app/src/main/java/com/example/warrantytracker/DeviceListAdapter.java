@@ -103,6 +103,9 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
                    }
                 }
             });
+
+
+
         }
     }
 }
