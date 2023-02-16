@@ -53,13 +53,29 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 deviceListAdapter.notifyDataSetChanged();
             }
         });
+        initRecyclerView();
 
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                // this method is called
+                // when the item is moved.
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                deleteDevice(position);
+            }
+            // at last we are adding this
+            // to our recycler view.
+        }).attachToRecyclerView(findViewById(R.id.recyclerView));
         initRecyclerView();
 
         loadDeviceList();
 
-        ItemTouchHelper helper = new ItemTouchHelper(callback);
-        helper.attachToRecyclerView();
     }
 
     /////////////////////////////
@@ -134,25 +150,24 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     }
 
-    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            Snackbar snackbar = Snackbar.make(constraintLayout, "Item Deleted!", Snackbar.LENGTH_LONG);
-            snackbar.show();
-
-            AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-            List<Device> deviceList = db.deviceDao().delete();
-            deviceListAdapter.setDeviceList(deviceList);
-        }
-    };
     @Override
     public int onDeviceSwipe(int position) {
         return position;
     }
+    private void deleteDevice(int position) {
+        // this method is called when we swipe our item to right direction.
+        // on below line we are getting the item at a particular position.
 
+        // below line is to get the position
+        // of the item at that position.
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        // this method is called when item is swiped.
+        // below line is to remove item from our array list.
+        db.deviceDao().delete(db.deviceDao().getAllDevices().get(position));
+        // below line is to notify our item is removed from adapter.
+        deviceListAdapter.update();
+        deviceListAdapter.notifyDataSetChanged();
+
+
+    }
 }
