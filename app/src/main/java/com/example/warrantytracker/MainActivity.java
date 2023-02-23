@@ -17,7 +17,7 @@ import android.widget.Button;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
-//import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
