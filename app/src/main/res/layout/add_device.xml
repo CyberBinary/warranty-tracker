@@ -7,73 +7,81 @@
 
     <EditText
         android:id="@+id/nameInput"
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="26dp"
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:minWidth="200dp"
+        android:minWidth="360dp"
         android:minHeight="50dp"
+        android:paddingLeft="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/serialInput"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292" />
+        app:layout_constraintVertical_bias="0.289" />
 
     <EditText
         android:id="@+id/manufacturerInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="26dp"
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="Manufacturer"
         android:inputType="textPersonName"
-        android:minWidth="375dp"
+        android:minWidth="360dp"
         android:minHeight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateOfPurchaseInput"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/serialInput"
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="108dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="26dp"
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="Serial Number"
         android:inputType="textPersonName"
-        android:minWidth="200dp"
+        android:minWidth="360dp"
         android:minHeight="50dp"
+        android:paddingLeft="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameInput"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintVertical_bias="0.004" />
 
     <Button
         android:id="@+id/dateOfPurchaseInput"
         style="?android:spinnerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="116dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="26dp"
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
-        android:minWidth="200dp"
+        android:minWidth="360dp"
         android:minHeight="50dp"
         android:onClick="openDatePicker"
         android:text="JAN 01 2022"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/serialInput"
         app:layout_constraintVertical_bias="0.014" />
 
@@ -110,6 +118,7 @@
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manufacturerInput" />
+        app:layout_constraintTop_toBottomOf="@+id/manufacturerInput"
+        app:layout_constraintVertical_bias="0.16" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
