@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -191,6 +192,40 @@ public class AddDevice extends AppCompatActivity {
     // UNFINISHED PHOTO PICKER
     //////////////////////////////////////////////////
     private void launchPhotoPicker() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddDevice.this);
+// Add the buttons
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked Camera button
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);//zero can be replaced with any action code (called requestCode)
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                return;
+            }
+        });
+
+        builder.setNeutralButton("Gallery", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User clicked Gallery button
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
+            }
+        });
+// Set other dialog properties
+
+// Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+
+
         //Adding photo picker
         /*ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
@@ -207,4 +242,21 @@ public class AddDevice extends AppCompatActivity {
         //final Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
 
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        switch(requestCode) {
+            case 0:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                }
+
+                break;
+            case 1:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                }
+                break;
+        }
+    }
+
 }
