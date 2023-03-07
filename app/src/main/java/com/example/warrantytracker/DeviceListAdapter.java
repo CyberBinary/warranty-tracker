@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -84,7 +85,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     // this is used in calling editDevice
     ///////////////////////////////////////////////////////////////////
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        ImageButton deviceImage;
+        ImageView deviceImage;
         TextView deviceName;
         TextView deviceManufacturer;
 
@@ -92,7 +93,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
             super(view);
             deviceName = view.findViewById(R.id.deviceName);
             deviceManufacturer = view.findViewById(R.id.deviceManufacturer);
-            deviceImage = view.findViewById(R.id.imageButton);
+            deviceImage = view.findViewById(R.id.deviceImage);
 
             AppDatabase db = AppDatabase.getDbInstance(context);
             List<Device> deviceList = db.deviceDao().getAllDevices();
