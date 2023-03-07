@@ -1,24 +1,36 @@
 package com.example.warrantytracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EditDevice extends AppCompatActivity {
-
+    Uri newImage;
+    String newImageString;
+    boolean imageEdited = false;
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
 
@@ -92,6 +104,8 @@ public class EditDevice extends AppCompatActivity {
         device.manufacturer = deviceManufacturer;
         device.deviceSerial = deviceSerial;
         device.deviceDateOfPurchase = deviceDateOfPurchase;
+        device.deviceImage = newImageString;
+
         db.deviceDao().updateDevice(device);
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
@@ -168,6 +182,104 @@ public class EditDevice extends AppCompatActivity {
 
     public void openDatePicker(View view) {
         datePickerDialog.show();
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String currentPhotoPath;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+    Uri extraPhotoURI = null;
+    private Uri setupCameraIntent() {
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+
+        }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+            Uri photoURI = FileProvider.getUriForFile(this,
+                    "com.example.android.fileprovider",
+                    photoFile);
+            extraPhotoURI = photoURI;
+            return photoURI;
+
+        } else {
+            return null;
+        }
+    }
+
+    private void launchPhotoPicker() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditDevice.this);
+        builder.setTitle("Where would you like to get the device image from?");
+        // Add the buttons
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked Camera button
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                takePicture.putExtra(MediaStore.EXTRA_OUTPUT, setupCameraIntent());
+                startActivityForResult(takePicture, 0);//zero can be replaced with any action code (called requestCode)
+
+            }
+        });
+        builder.setNeutralButton("Gallery", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User clicked Gallery button
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                return;
+            }
+        });
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        ImageButton imageButton = findViewById(R.id.imageButton);
+        switch(requestCode) {
+            case 0:
+                if(resultCode == RESULT_OK){
+                    if (extraPhotoURI != null) {
+                        newImageString = extraPhotoURI.toString();
+                        imageButton.setImageURI(extraPhotoURI);
+                    } else {
+                        newImage = imageReturnedIntent.getData();
+                        newImageString = newImage.toString();
+                        imageButton.setImageURI(newImage);
+                    }
+                }
+
+                break;
+            case 1:
+                if(resultCode == RESULT_OK){
+                    newImage = imageReturnedIntent.getData();
+                    newImageString = newImage.toString();
+                    imageEdited = true;
+                    imageButton.setImageURI(newImage);
+                }
+                break;
+        }
     }
 
 }
