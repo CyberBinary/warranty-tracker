@@ -60,10 +60,13 @@ public class EditDevice extends AppCompatActivity {
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
         final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+        final ImageButton deviceImage = findViewById(R.id.imageButton);
         deviceNameInput.setText(device.deviceName);
         deviceManufacturerInput.setText(device.manufacturer);
         deviceSerialInput.setText(device.deviceSerial);
         deviceDateOfPurchaseInput.setText(device.deviceDateOfPurchase);
+        deviceImage.setImageURI(Uri.parse(device.deviceImage));
+
 
         ///////////////////////
         // save button function
@@ -104,8 +107,9 @@ public class EditDevice extends AppCompatActivity {
         device.manufacturer = deviceManufacturer;
         device.deviceSerial = deviceSerial;
         device.deviceDateOfPurchase = deviceDateOfPurchase;
-        device.deviceImage = newImageString;
-
+        if (imageEdited == true) {
+            device.deviceImage = newImageString;
+        }
         db.deviceDao().updateDevice(device);
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
@@ -263,10 +267,12 @@ public class EditDevice extends AppCompatActivity {
                     if (extraPhotoURI != null) {
                         newImageString = extraPhotoURI.toString();
                         imageButton.setImageURI(extraPhotoURI);
+                        imageEdited=true;
                     } else {
                         newImage = imageReturnedIntent.getData();
                         newImageString = newImage.toString();
                         imageButton.setImageURI(newImage);
+                        imageEdited = true;
                     }
                 }
 
