@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray">
+    android:background="@color/white">
 
 
     <androidx.cardview.widget.CardView
@@ -40,7 +40,7 @@
                 android:paddingBottom="5dp"
                 android:text="Device Name"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/deviceManufacturer"
                 app:layout_constraintStart_toEndOf="@+id/deviceImage" />
@@ -73,7 +73,7 @@
                 android:paddingBottom="5dp"
                 android:text="Manufacturer"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/deviceImage"
                 app:layout_constraintTop_toBottomOf="parent"

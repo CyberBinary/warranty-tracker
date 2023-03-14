@@ -7,11 +7,29 @@
     tools:context=".MainActivity"
     android:id="@+id/constraint_layout">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="358dp"
+        android:text="Sort By"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <Button
         android:id="@+id/addDevice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Device"
+        android:text="+"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -23,28 +41,37 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="parent"
+        android:orientation="vertical"
+        android:paddingTop="80dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/sortManufacturer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sortManu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addDevice"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="633dp"
+        android:text="Manufacturer"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
 
     <Button
         android:id="@+id/sortName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sortName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addDevice" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="633dp"
+        android:text="Device Name"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
