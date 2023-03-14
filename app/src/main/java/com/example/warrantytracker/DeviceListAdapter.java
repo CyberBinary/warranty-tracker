@@ -1,9 +1,12 @@
 package com.example.warrantytracker;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,6 +66,9 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     public void onBindViewHolder(@NonNull DeviceListAdapter.MyViewHolder holder, int position) {
         holder.deviceName.setText(this.deviceList.get(position).deviceName);
         holder.deviceManufacturer.setText(this.deviceList.get(position).manufacturer);
+        if (Uri.parse(this.deviceList.get(position).deviceImage) != null && holder.deviceImage != null) {
+            holder.deviceImage.setImageURI(Uri.parse(this.deviceList.get(position).deviceImage));
+        }
     }
 
     ///////////////////////////////
@@ -79,6 +85,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     // this is used in calling editDevice
     ///////////////////////////////////////////////////////////////////
     public class MyViewHolder extends RecyclerView.ViewHolder{
+        ImageView deviceImage;
         TextView deviceName;
         TextView deviceManufacturer;
 
@@ -86,6 +93,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
             super(view);
             deviceName = view.findViewById(R.id.deviceName);
             deviceManufacturer = view.findViewById(R.id.deviceManufacturer);
+            deviceImage = view.findViewById(R.id.deviceImage);
 
             AppDatabase db = AppDatabase.getDbInstance(context);
             List<Device> deviceList = db.deviceDao().getAllDevices();

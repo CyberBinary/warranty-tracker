@@ -1,5 +1,7 @@
 package com.example.warrantytracker.database;
 
+import android.net.Uri;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -26,5 +28,8 @@ public class Device {
 
     @ColumnInfo(name = "date_of_purchase")
     public String deviceDateOfPurchase;
+
+    @ColumnInfo(name = "device_image")
+    public String deviceImage;
 
 }
