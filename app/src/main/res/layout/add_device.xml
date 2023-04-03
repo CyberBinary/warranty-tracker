@@ -128,4 +128,14 @@
         app:layout_constraintTop_toBottomOf="@+id/manufacturerInput"
         app:layout_constraintVertical_bias="0.16" />
 
+    <TextView
+        android:id="@+id/timeRemaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linkButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

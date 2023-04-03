@@ -22,6 +22,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
@@ -65,6 +68,7 @@ public class AddDevice extends AppCompatActivity {
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
         final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
         final Button linkButton = findViewById(R.id.linkButton);
+        final TextView timeRemaining = findViewById(R.id.timeRemaining);
         linkButton.setVisibility(View.GONE);
 
         Button saveButton = findViewById(R.id.saveButton);
@@ -144,7 +148,18 @@ public class AddDevice extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
+                //month = month + 1;
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.set(year , month, day);
+                calendar2.add(Calendar.YEAR, 1);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    int daysBetween = (int) ChronoUnit.DAYS.between(calendar.toInstant(), calendar2.toInstant());
+                    TextView timeRemaining = findViewById(R.id.timeRemaining);
+                    timeRemaining.setText(daysBetween + " days remaining");
+                }
+
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
             }
