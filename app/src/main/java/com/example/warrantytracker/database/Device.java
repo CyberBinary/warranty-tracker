@@ -32,4 +32,10 @@ public class Device {
     @ColumnInfo(name = "device_image")
     public String deviceImage;
 
+    @ColumnInfo(name = "warranty_months")
+    public int warrantyMonths;
+
+    @ColumnInfo(name = "warranty_years")
+    public int warrantyYears;
+
 }

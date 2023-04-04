@@ -69,6 +69,8 @@ public class AddDevice extends AppCompatActivity {
         final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
         final Button linkButton = findViewById(R.id.linkButton);
         final TextView timeRemaining = findViewById(R.id.timeRemaining);
+        final EditText warrantyMonths = findViewById(R.id.warrantyMonths);
+        final EditText warrantyYears = findViewById(R.id.warrantyYears);
         linkButton.setVisibility(View.GONE);
 
         Button saveButton = findViewById(R.id.saveButton);
@@ -173,6 +175,17 @@ public class AddDevice extends AppCompatActivity {
         int style = AlertDialog.THEME_HOLO_LIGHT;
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
 
+    }
+
+    private void timeRemaining(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.set(0,0,0);
+            int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
+            TextView timeRemaining = findViewById(R.id.timeRemaining);
+            timeRemaining.setText(daysBetween + " days remaining");
+        }
+        return;
     }
 
     ////////////////////////////////////
