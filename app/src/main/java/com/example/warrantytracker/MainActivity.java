@@ -1,5 +1,4 @@
 package com.example.warrantytracker;
-package com.example.application.spinnerexample;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
