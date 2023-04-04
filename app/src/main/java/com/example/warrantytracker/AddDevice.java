@@ -155,7 +155,7 @@ public class AddDevice extends AppCompatActivity {
                 calendar2.set(year , month, day);
                 calendar2.add(Calendar.YEAR, 1);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    int daysBetween = (int) ChronoUnit.DAYS.between(calendar.toInstant(), calendar2.toInstant());
+                    int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
                     TextView timeRemaining = findViewById(R.id.timeRemaining);
                     timeRemaining.setText(daysBetween + " days remaining");
                 }
