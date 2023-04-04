@@ -1,4 +1,5 @@
 package com.example.warrantytracker;
+package com.example.application.spinnerexample;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +14,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
@@ -31,28 +35,29 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     // initializes recyclerview and loads the device list
     /////////////////////////////////////////////
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        constraintLayout = findViewById(R.id.constraint_layout);
+        constraintLayout=findViewById(R.id.constraint_layout);
 
         ///////////////////////////////////////////////////////
         // Button function to add device
         // Button will take you to addDevice page
         ///////////////////////////////////////////////////////
 
-        Button addDevice = findViewById(R.id.addDevice);
-        addDevice.setOnClickListener(new View.OnClickListener() {
+        Button addDevice=findViewById(R.id.addDevice);
+        addDevice.setOnClickListener(new View.OnClickListener(){
 
-            public void onClick(View v) {
-                System.out.println("Button Clicked");
-                // DEPRECATED API, UPDATE TO ACTIVITY RESULT API IN FUTURE
-                Intent addDeviceIntent = new Intent(getApplicationContext(), AddDevice.class);
-                startActivityForResult(addDeviceIntent, 1);
-                deviceListAdapter.update();
-                deviceListAdapter.notifyDataSetChanged();
-            }
+public void onClick(View v){
+        System.out.println("Button Clicked");
+        // DEPRECATED API, UPDATE TO ACTIVITY RESULT API IN FUTURE
+        Intent addDeviceIntent=new Intent(getApplicationContext(),AddDevice.class);
+        startActivityForResult(addDeviceIntent,1);
+        deviceListAdapter.update();
+        deviceListAdapter.notifyDataSetChanged();
+        }
         });
+
         Button sortName = findViewById(R.id.sortName);
         sortName.setOnClickListener(new View.OnClickListener() {
 
