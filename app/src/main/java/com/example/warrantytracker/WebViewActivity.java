@@ -27,6 +27,18 @@ public class WebViewActivity extends AppCompatActivity {
             case "lg":
                 webView.loadUrl("https://www.lg.com/us/support/repair-service/schedule-repair-continued");
                 break;
+            case "samsung":
+                webView.loadUrl("https://www.samsung.com/us/support/warranty/");
+                break;
+            case "sony":
+                webView.loadUrl("https://us.esupport.sony.com/support/s/service?language=en_US");
+                break;
+            case "dell":
+                webView.loadUrl("https://www.dell.com/support/home/en-us?app=warranty");
+                break;
+            case "asus":
+                webView.loadUrl("https://www.asus.com/us/support/warranty-status-inquiry/");
+                break;
         }
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
