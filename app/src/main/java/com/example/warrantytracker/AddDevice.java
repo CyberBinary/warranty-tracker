@@ -78,7 +78,7 @@ public class AddDevice extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString());
+                saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonths.getText().toString()), Integer.parseInt(warrantyYears.getText().toString()));
             }
         });
 
@@ -109,7 +109,7 @@ public class AddDevice extends AppCompatActivity {
     //takes device input pulled above and saves it to the database
     //
     /////////////////////////////////////////////////////////////////
-    private void saveNewDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase){
+    private void saveNewDevice(String deviceName, String deviceManufacturer, String deviceSerial, String deviceDateOfPurchase, String timeRemaining, int warrantyMonths, int warrantyYears){
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         Device device = new Device();
@@ -117,6 +117,9 @@ public class AddDevice extends AppCompatActivity {
         device.manufacturer = deviceManufacturer;
         device.deviceSerial = deviceSerial;
         device.deviceDateOfPurchase = deviceDateOfPurchase;
+        device.timeRemaining = timeRemaining;
+        device.warrantyMonths = warrantyMonths;
+        device.warrantyYears = warrantyYears;
         if (imageEdited) {
             //SAVE URI
             device.deviceImage = extraPhotoURI.toString();
@@ -194,6 +197,14 @@ public class AddDevice extends AppCompatActivity {
     ///////////////////////////////////
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private Calendar makeStringDate( int day, int month, int year){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.MONTH, month - 1); // Calendar month starts from 0
+        calendar.set(Calendar.YEAR, year);
+        return calendar;
     }
 
     private String getMonthFormat(int month) {

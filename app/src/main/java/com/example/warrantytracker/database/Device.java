@@ -38,4 +38,6 @@ public class Device {
     @ColumnInfo(name = "warranty_years")
     public int warrantyYears;
 
+    @ColumnInfo(name = "time_Remaining")
+    public String timeRemaining;
 }
