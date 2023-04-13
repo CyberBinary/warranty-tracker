@@ -198,15 +198,12 @@ public class AddDevice extends AppCompatActivity {
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
+    // transform the string above that you get turn it into a calendar object ^^
+   // private Calendar makeStringDate(String date)
+    //{
+      //  Calendar calendar = Calendar.getInstance();
 
-    private Calendar makeStringDate( int day, int month, int year){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        calendar.set(Calendar.MONTH, month - 1); // Calendar month starts from 0
-        calendar.set(Calendar.YEAR, year);
-        return calendar;
-    }
-
+    //}
     private String getMonthFormat(int month) {
         if(month == 1)
             return "JAN";
