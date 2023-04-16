@@ -22,6 +22,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddDevice extends AppCompatActivity {
 
@@ -158,7 +161,12 @@ public class AddDevice extends AppCompatActivity {
                 calendar.set(year, month, day);
                 Calendar calendar2 = Calendar.getInstance();
                 calendar2.set(year , month, day);
-                calendar2.add(Calendar.YEAR, 1);
+                EditText warrantyMonths = findViewById(R.id.warrantyMonths);
+                EditText warrantyYears = findViewById(R.id.warrantyYears);
+                int years = Integer.parseInt(warrantyYears.getText().toString());
+                calendar2.add(Calendar.YEAR, years);
+                int months = Integer.parseInt(warrantyMonths.getText().toString());
+                        calendar2.add(Calendar.MONTH, months);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
                     TextView timeRemaining = findViewById(R.id.timeRemaining);
@@ -199,11 +207,17 @@ public class AddDevice extends AppCompatActivity {
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-    private Calendar makeStringDate( int day, int month, int year){
+    // transform the string above that you get turn it into a calendar object ^^
+    private Calendar makeStringDate(String date){
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        calendar.set(Calendar.MONTH, month - 1); // Calendar month starts from 0
-        calendar.set(Calendar.YEAR, year);
+    //Calendar.getInstance().setTimeInMillis(Long.parseLong(Map.get(strIndex)))
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.US);
+        try {
+            Date parsedDate = dateFormat.parse(date);
+            calendar.setTime(parsedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return calendar;
     }
 

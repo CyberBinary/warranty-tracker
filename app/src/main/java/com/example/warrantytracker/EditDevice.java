@@ -17,15 +17,19 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class EditDevice extends AppCompatActivity {
     Uri newImage;
@@ -61,6 +65,9 @@ public class EditDevice extends AppCompatActivity {
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
         final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
         final ImageButton deviceImage = findViewById(R.id.imageButton);
+        final TextView timeRemaining = findViewById(R.id.timeRemaining);
+        final EditText warrantyMonths = findViewById(R.id.warrantyMonths);
+        final EditText warrantyYears = findViewById(R.id.warrantyYears);
         deviceNameInput.setText(device.deviceName);
         deviceManufacturerInput.setText(device.manufacturer);
         deviceSerialInput.setText(device.deviceSerial);
@@ -76,8 +83,7 @@ public class EditDevice extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(),
-                        deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString());
+                editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonths.getText().toString()), Integer.parseInt(warrantyYears.getText().toString()));
             }
         });
         Button linkButton = findViewById(R.id.linkButton);
@@ -99,14 +105,18 @@ public class EditDevice extends AppCompatActivity {
     //
     /////////////////////////////////////////////////////////////////
     private void editDevice(String deviceName, String deviceManufacturer, String deviceSerial,
-            String deviceDateOfPurchase) {
+            String deviceDateOfPurchase, String timeRemaining, int warrantyMonths, int warrantyYears) {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+
         int position = getIntent().getIntExtra("devicePosition", 0);
         Device device = db.deviceDao().loadDeviceById(position);
         device.deviceName = deviceName;
         device.manufacturer = deviceManufacturer;
         device.deviceSerial = deviceSerial;
         device.deviceDateOfPurchase = deviceDateOfPurchase;
+        device.timeRemaining = timeRemaining;
+        device.warrantyMonths = warrantyMonths;
+        device.warrantyYears = warrantyYears;
         if (imageEdited == true) {
             device.deviceImage = newImageString;
         }
@@ -129,7 +139,23 @@ public class EditDevice extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
+                //month = month + 1;
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.set(year , month, day);
+                EditText warrantyMonths = findViewById(R.id.warrantyMonths);
+                EditText warrantyYears = findViewById(R.id.warrantyYears);
+                int years = Integer.parseInt(warrantyYears.getText().toString());
+                calendar2.add(Calendar.YEAR, years);
+                int months = Integer.parseInt(warrantyMonths.getText().toString());
+                calendar2.add(Calendar.MONTH, months);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
+                    TextView timeRemaining = findViewById(R.id.timeRemaining);
+                    timeRemaining.setText(daysBetween + " days remaining");
+                }
+
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
             }
@@ -152,6 +178,20 @@ public class EditDevice extends AppCompatActivity {
 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    // transform the string above that you get turn it into a calendar object ^^
+    private Calendar makeStringDate(String date){
+        Calendar calendar = Calendar.getInstance();
+        //Calendar.getInstance().setTimeInMillis(Long.parseLong(Map.get(strIndex)))
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.US);
+        try {
+            Date parsedDate = dateFormat.parse(date);
+            calendar.setTime(parsedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return calendar;
     }
 
     private String getMonthFormat(int month) {
