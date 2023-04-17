@@ -66,7 +66,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     public void onBindViewHolder(@NonNull DeviceListAdapter.MyViewHolder holder, int position) {
         holder.deviceName.setText(this.deviceList.get(position).deviceName);
         holder.deviceManufacturer.setText(this.deviceList.get(position).manufacturer);
-        if (Uri.parse(this.deviceList.get(position).deviceImage) != null && holder.deviceImage != null) {
+        if (this.deviceList.get(position).deviceImage != null && holder.deviceImage != null) {
             holder.deviceImage.setImageURI(Uri.parse(this.deviceList.get(position).deviceImage));
         }
     }

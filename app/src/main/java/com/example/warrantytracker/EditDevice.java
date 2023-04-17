@@ -72,7 +72,10 @@ public class EditDevice extends AppCompatActivity {
         deviceManufacturerInput.setText(device.manufacturer);
         deviceSerialInput.setText(device.deviceSerial);
         deviceDateOfPurchaseInput.setText(device.deviceDateOfPurchase);
-        deviceImage.setImageURI(Uri.parse(device.deviceImage));
+        if (device.deviceImage != null) {
+            deviceImage.setImageURI(Uri.parse(device.deviceImage));
+        }
+
 
 
         ///////////////////////

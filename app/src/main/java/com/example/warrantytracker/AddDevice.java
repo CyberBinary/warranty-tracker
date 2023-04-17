@@ -1,15 +1,23 @@
 package com.example.warrantytracker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -22,6 +30,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -128,12 +137,51 @@ public class AddDevice extends AppCompatActivity {
             device.deviceImage = extraPhotoURI.toString();
         }
         db.deviceDao().insertDevice(device);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            createNotification(1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.SECOND, 10);
+            scheduleNotification(calendar);
+        }
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
 
     }
+    /////////////////////////////////////
+    // Creates a notification
+    /////////////////////////////////////
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotification(int id) {
+        String notid = String.valueOf(id);
+        String name = "name";
+        String description = "description";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(notid, name, importance);
+        channel.setDescription(description);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.createNotificationChannel(channel);
+    }
+
+    public void scheduleNotification(Calendar calendar) {
+        String CHANNEL_ID = "new";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("wow")
+                .setContentText("cool")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        Intent intent = new Intent(getApplicationContext(), Notification.class);
+        intent.putExtra("titleExtra", "Dynamic Title");
+        intent.putExtra("textExtra", "Dynamic Text Body");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            Toast.makeText(getApplicationContext(), "Scheduled ", Toast.LENGTH_LONG).show();
+        }
+
+    }
     /////////////////////////////////////
     // Sets the current date automatically
     // to the date text box.
@@ -166,7 +214,8 @@ public class AddDevice extends AppCompatActivity {
                 int years = Integer.parseInt(warrantyYears.getText().toString());
                 calendar2.add(Calendar.YEAR, years);
                 int months = Integer.parseInt(warrantyMonths.getText().toString());
-                        calendar2.add(Calendar.MONTH, months);
+                calendar2.add(Calendar.MONTH, months);
+
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
                     TextView timeRemaining = findViewById(R.id.timeRemaining);
