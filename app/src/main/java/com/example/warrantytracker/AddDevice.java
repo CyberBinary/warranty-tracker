@@ -139,49 +139,17 @@ public class AddDevice extends AppCompatActivity {
         db.deviceDao().insertDevice(device);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            createNotification(1);
+            //createNotification(1);
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.SECOND, 10);
-            scheduleNotification(calendar);
+            //scheduleNotification(calendar);
         }
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
 
     }
-    /////////////////////////////////////
-    // Creates a notification
-    /////////////////////////////////////
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createNotification(int id) {
-        String notid = String.valueOf(id);
-        String name = "name";
-        String description = "description";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(notid, name, importance);
-        channel.setDescription(description);
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.createNotificationChannel(channel);
-    }
-
-    public void scheduleNotification(Calendar calendar) {
-        String CHANNEL_ID = "new";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("wow")
-                .setContentText("cool")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        Intent intent = new Intent(getApplicationContext(), Notification.class);
-        intent.putExtra("titleExtra", "Dynamic Title");
-        intent.putExtra("textExtra", "Dynamic Text Body");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            Toast.makeText(getApplicationContext(), "Scheduled ", Toast.LENGTH_LONG).show();
-        }
-
-    }
     /////////////////////////////////////
     // Sets the current date automatically
     // to the date text box.
