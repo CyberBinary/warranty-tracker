@@ -90,7 +90,20 @@ public class AddDevice extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonths.getText().toString()), Integer.parseInt(warrantyYears.getText().toString()));
+                int warrantyMonthsVal = 0;
+                int warrantyYearsVal = 0;
+                if (warrantyMonths.getText().toString().equals("") && warrantyYears.getText().toString().equals("")) {
+                    warrantyMonthsVal = 0;
+                    warrantyYearsVal = 1;
+                } else if (warrantyMonths.getText().toString().equals("")) {
+                    warrantyMonthsVal = 0;
+                    warrantyYearsVal = Integer.parseInt(warrantyYears.getText().toString());
+
+                } else {
+                    warrantyYearsVal = Integer.parseInt(warrantyYears.getText().toString());
+                    warrantyMonthsVal = Integer.parseInt(warrantyMonths.getText().toString());
+                }
+                saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), warrantyMonthsVal, warrantyYearsVal);
             }
         });
 
@@ -137,17 +150,32 @@ public class AddDevice extends AppCompatActivity {
             device.deviceImage = extraPhotoURI.toString();
         }
         db.deviceDao().insertDevice(device);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            //createNotification(1);
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.SECOND, 10);
-            //scheduleNotification(calendar);
-        }
+        int id = device.deviceID;
+        notificationSet(id);
+
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
 
+    }
+
+    private void notificationSet (int id) {
+        final String CHANNEL_ID = "channel1";
+
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), "notification set function", duration);
+        toast.show();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Test")
+                .setContentText("Test description");
+
+        NotificationManager notificationManager = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.notify(id, builder.build());
+        }
     }
 
     /////////////////////////////////////
