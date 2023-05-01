@@ -49,7 +49,7 @@ public class EditDevice extends AppCompatActivity {
         setContentView(R.layout.add_device);
 
         intDatePicker();
-        dateButton = findViewById(R.id.dateOfPurchaseInput);
+        dateButton = findViewById(R.id.deviceTimeRemaining);
         dateButton.setText(getTodaysDate());
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
@@ -63,7 +63,7 @@ public class EditDevice extends AppCompatActivity {
         final EditText deviceNameInput = findViewById(R.id.nameInput);
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
-        final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+        final Button deviceDateOfPurchaseInput = findViewById(R.id.deviceTimeRemaining);
         final ImageButton deviceImage = findViewById(R.id.imageButton);
         final TextView timeRemaining = findViewById(R.id.timeRemaining);
         final EditText warrantyMonths = findViewById(R.id.warrantyMonths);

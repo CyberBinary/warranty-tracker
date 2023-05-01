@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.MyViewHolder>{
@@ -69,8 +75,38 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         if (this.deviceList.get(position).deviceImage != null && holder.deviceImage != null) {
             holder.deviceImage.setImageURI(Uri.parse(this.deviceList.get(position).deviceImage));
         }
+        holder.deviceTimeRemaining.setText(daysRemaining(this.deviceList.get(position)));
     }
 
+    private String daysRemaining(Device device){
+        Calendar calendar2 = Calendar.getInstance();
+
+        int years = device.warrantyYears;
+        calendar2.add(Calendar.YEAR, years);
+        int months = device.warrantyMonths;
+        calendar2.add(Calendar.MONTH, months);
+        int daysBetween = 365;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
+
+        }
+        return (daysBetween + " days remaining");
+    }
+    private String makeDateString(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date selectedDate = calendar.getTime();
+        String strDate = sdf.format(selectedDate);
+        return strDate;
+    }
+
+    // transform the string above that you get turn it into a calendar object ^^
+    private Calendar makeStringDate(String str_date) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = (Date)sdf.parse(str_date);
+        calendar.setTime(date);
+        return calendar;
+    }
     ///////////////////////////////
     // gets deviceList's size
     ///////////////////////////////
@@ -89,11 +125,14 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         TextView deviceName;
         TextView deviceManufacturer;
 
+        TextView deviceTimeRemaining;
+
         public MyViewHolder(@NonNull View view, RecyclerViewInterface recyclerViewInterface) {
             super(view);
             deviceName = view.findViewById(R.id.deviceName);
             deviceManufacturer = view.findViewById(R.id.deviceManufacturer);
             deviceImage = view.findViewById(R.id.deviceImage);
+            deviceTimeRemaining = view.findViewById(R.id.deviceTimeRemaining);
 
             AppDatabase db = AppDatabase.getDbInstance(context);
             List<Device> deviceList = db.deviceDao().getAllDevices();

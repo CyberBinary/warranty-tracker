@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("channel1", "notification", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("description");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

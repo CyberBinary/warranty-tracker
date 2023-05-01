@@ -70,7 +70,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/dateOfPurchaseInput"
+        android:id="@+id/deviceTimeRemaining"
         style="?android:spinnerStyle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
