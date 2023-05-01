@@ -12,7 +12,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,6 +41,7 @@ public class EditDevice extends AppCompatActivity {
     boolean imageEdited = false;
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+    private Bundle savedInstanceState;
 
     //////////////////////////////////////////////
     // On create, loads add_device.xml layout
@@ -76,8 +81,6 @@ public class EditDevice extends AppCompatActivity {
             deviceImage.setImageURI(Uri.parse(device.deviceImage));
         }
 
-
-
         ///////////////////////
         // save button function
         //
@@ -89,6 +92,8 @@ public class EditDevice extends AppCompatActivity {
                 editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonths.getText().toString()), Integer.parseInt(warrantyYears.getText().toString()));
             }
         });
+
+        // open manufacturer website
         Button linkButton = findViewById(R.id.linkButton);
         linkButton.setVisibility(View.VISIBLE);
         linkButton.setOnClickListener(new View.OnClickListener() {
@@ -180,14 +185,14 @@ public class EditDevice extends AppCompatActivity {
     ///////////////////////////////////
 
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
+        return getMonthFormat(month) + " " + day + ", " + year;
     }
 
     // transform the string above that you get turn it into a calendar object ^^
     private Calendar makeStringDate(String date){
         Calendar calendar = Calendar.getInstance();
         //Calendar.getInstance().setTimeInMillis(Long.parseLong(Map.get(strIndex)))
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
         try {
             Date parsedDate = dateFormat.parse(date);
             calendar.setTime(parsedDate);
@@ -199,32 +204,32 @@ public class EditDevice extends AppCompatActivity {
 
     private String getMonthFormat(int month) {
         if (month == 1)
-            return "JAN";
+            return "January";
         if (month == 2)
-            return "FEB";
+            return "February";
         if (month == 3)
-            return "MAR";
+            return "March";
         if (month == 4)
-            return "APR";
+            return "April";
         if (month == 5)
-            return "MAY";
+            return "May";
         if (month == 6)
-            return "JUN";
+            return "June";
         if (month == 7)
-            return "JUL";
+            return "July";
         if (month == 8)
-            return "AUG";
+            return "August";
         if (month == 9)
-            return "SEP";
+            return "September";
         if (month == 10)
-            return "OCT";
+            return "October";
         if (month == 11)
-            return "NOV";
+            return "November";
         if (month == 12)
-            return "DEC";
+            return "December";
 
         // default
-        return "JAN";
+        return "January";
     }
 
     public void openDatePicker(View view) {

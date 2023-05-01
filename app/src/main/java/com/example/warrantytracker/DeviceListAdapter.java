@@ -72,6 +72,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     public void onBindViewHolder(@NonNull DeviceListAdapter.MyViewHolder holder, int position) {
         holder.deviceName.setText(this.deviceList.get(position).deviceName);
         holder.deviceManufacturer.setText(this.deviceList.get(position).manufacturer);
+        holder.dateOfPurchaseInput.setText(this.deviceList.get(position).deviceDateOfPurchase);
         if (this.deviceList.get(position).deviceImage != null && holder.deviceImage != null) {
             holder.deviceImage.setImageURI(Uri.parse(this.deviceList.get(position).deviceImage));
         }
@@ -124,6 +125,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         ImageView deviceImage;
         TextView deviceName;
         TextView deviceManufacturer;
+        TextView dateOfPurchaseInput;
 
         TextView deviceTimeRemaining;
 
