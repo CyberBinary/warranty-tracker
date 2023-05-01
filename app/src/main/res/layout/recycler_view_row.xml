@@ -52,7 +52,7 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="01/01/23"
+                android:text="January 12, 2022"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold|italic"

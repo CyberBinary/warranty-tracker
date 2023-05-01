@@ -117,6 +117,9 @@ public class AddDevice extends AppCompatActivity {
                     warrantyMonthsVal = Integer.parseInt(warrantyMonths.getText().toString());
                 }
                 saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), warrantyMonthsVal, warrantyYearsVal);
+                // display time remaining on device's recyclerview card
+                TextView dateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+                dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());
             }
         });
 
@@ -185,7 +188,7 @@ public class AddDevice extends AppCompatActivity {
         final String CHANNEL_ID = "channel1";
 
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), "notification set function", duration);
+        Toast toast = Toast.makeText(getApplicationContext(), "Notification set", duration);
         toast.show();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -270,14 +273,14 @@ public class AddDevice extends AppCompatActivity {
     // on the recycler list
     ///////////////////////////////////
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
+        return getMonthFormat(month) + " " + day + ", " + year;
     }
 
     // transform the string above that you get turn it into a calendar object ^^
     private Calendar makeStringDate(String date){
         Calendar calendar = Calendar.getInstance();
     //Calendar.getInstance().setTimeInMillis(Long.parseLong(Map.get(strIndex)))
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
         try {
             Date parsedDate = dateFormat.parse(date);
             calendar.setTime(parsedDate);
@@ -289,32 +292,32 @@ public class AddDevice extends AppCompatActivity {
 
     private String getMonthFormat(int month) {
         if(month == 1)
-            return "JAN";
+            return "January";
         if(month == 2)
-            return "FEB";
+            return "February";
         if(month == 3)
-            return "MAR";
+            return "March";
         if(month == 4)
-            return "APR";
+            return "April";
         if(month == 5)
-            return "MAY";
+            return "May";
         if(month == 6)
-            return "JUN";
+            return "June";
         if(month == 7)
-            return "JUL";
+            return "July";
         if(month == 8)
-            return "AUG";
+            return "August";
         if(month == 9)
-            return "SEP";
+            return "September";
         if(month == 10)
-            return "OCT";
+            return "October";
         if(month == 11)
-            return "NOV";
+            return "November";
         if(month == 12)
-            return "DEC";
+            return "December";
 
         //default
-        return "JAN";
+        return "January";
     }
 
 

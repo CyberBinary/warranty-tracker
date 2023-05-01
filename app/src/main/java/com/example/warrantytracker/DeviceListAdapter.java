@@ -66,6 +66,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     public void onBindViewHolder(@NonNull DeviceListAdapter.MyViewHolder holder, int position) {
         holder.deviceName.setText(this.deviceList.get(position).deviceName);
         holder.deviceManufacturer.setText(this.deviceList.get(position).manufacturer);
+        holder.dateOfPurchaseInput.setText(this.deviceList.get(position).deviceDateOfPurchase);
         if (this.deviceList.get(position).deviceImage != null && holder.deviceImage != null) {
             holder.deviceImage.setImageURI(Uri.parse(this.deviceList.get(position).deviceImage));
         }
@@ -88,12 +89,14 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         ImageView deviceImage;
         TextView deviceName;
         TextView deviceManufacturer;
+        TextView dateOfPurchaseInput;
 
         public MyViewHolder(@NonNull View view, RecyclerViewInterface recyclerViewInterface) {
             super(view);
             deviceName = view.findViewById(R.id.deviceName);
             deviceManufacturer = view.findViewById(R.id.deviceManufacturer);
             deviceImage = view.findViewById(R.id.deviceImage);
+            dateOfPurchaseInput = view.findViewById(R.id.dateOfPurchaseInput);
 
             AppDatabase db = AppDatabase.getDbInstance(context);
             List<Device> deviceList = db.deviceDao().getAllDevices();

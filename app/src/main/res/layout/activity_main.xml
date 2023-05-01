@@ -7,16 +7,21 @@
     tools:context=".MainActivity"
     android:id="@+id/constraint_layout">
 
-    <Spinner
-        android:id="@+id/sortSpinner"
-        android:text="Sort By"
-        android:layout_width="48dp"
-        android:layout_height="24dp"
+    <!-- add device button (circle) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:clickable="true"
+        app:backgroundTint="#2069FE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
+    <!-- add device button (rectangle)
     <Button
         android:id="@+id/addDevice"
         android:layout_width="wrap_content"
@@ -28,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.948" />
+        app:layout_constraintVertical_bias="0.948" /> -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -39,32 +44,51 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- name sort -->
     <Button
         android:id="@+id/sortManufacturer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="633dp"
         android:text="Manufacturer"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toEndOf="@id/sortName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
     <Button
         android:id="@+id/sortName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="633dp"
         android:text="Device Name"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sortManufacturer"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <!-- <android.widget.Button
+        android:id="@+id/sortBy"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="#999B9B"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Sort By"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028"
+        app:cornerRadius="20dp" /> -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
