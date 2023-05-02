@@ -16,6 +16,7 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class AddDevice extends AppCompatActivity {
 
     // manufacturers strings for autofill
     private static final String[] manufacturers = new String[] {
-            "LG", "Samsung", "Dell"
+            "LG", "Samsung", "Dell", "Seagate", "HP", "Lenovo", "Apple", "Epson", "Asus", "Microsoft", "Acer"
     };
 
     private DatePickerDialog datePickerDialog;
@@ -98,11 +99,15 @@ public class AddDevice extends AppCompatActivity {
         final EditText warrantyYears = findViewById(R.id.warrantyYears);
         linkButton.setVisibility(View.GONE);
 
+        // changes color of button after clicking
+        int colorOnClick = Color.parseColor("#0000a5");
+
         Button saveButton = findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveButton.setBackgroundColor(colorOnClick);
                 int warrantyMonthsVal = 0;
                 int warrantyYearsVal = 0;
                 if (warrantyMonths.getText().toString().equals("") && warrantyYears.getText().toString().equals("")) {
@@ -127,18 +132,50 @@ public class AddDevice extends AppCompatActivity {
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String manufacturer1 = "LG";
-                String manufacturer2 = "Samsung";
-                String manufacturer3 = "Dell";
+                String lg = "LG";
+                String samsung = "Samsung";
+                String dell = "Dell";
+                String seagate = "Seagate";
+                String hp = "HP";
+                String lenovo = "Lenovo";
+                String apple = "Apple";
+                String epson = "Epson";
+                String asus = "Asus";
+                String microsoft = "Microsoft";
+                String acer = "Acer";
 
-                if (manufacturer1.equals("LG")) {
+                if (lg.equals("LG")) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.lg.com/us/support/repair-service/schedule-repair-continued"));
                     startActivity(intent);
-                } else if (manufacturer2.equals("Samsung")) {
+                } else if (samsung.equals("Samsung")) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.samsung.com/us/support/warranty/"));
                     startActivity(intent);
-                } else  if (manufacturer3.equals("Dell")) {
+                } else  if (dell.equals("Dell")) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.dell.com/support/home/en-us?app=warranty"));
+                    startActivity(intent);
+                } else  if (seagate.equals("Seagate")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.seagate.com/support/warranty-and-replacements/"));
+                    startActivity(intent);
+                } else  if (hp.equals("HP")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://support.hp.com/us-en/check-warranty"));
+                    startActivity(intent);
+                } else  if (lenovo.equals("Lenovo")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pcsupport.lenovo.com/us/en/warrantylookup#/"));
+                    startActivity(intent);
+                } else  if (apple.equals("Apple")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://checkcoverage.apple.com/"));
+                    startActivity(intent);
+                } else  if (epson.equals("Epson")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://epson.com/w/warranty"));
+                    startActivity(intent);
+                } else  if (asus.equals("Asus")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.asus.com/us/support/warranty-status-inquiry/"));
+                    startActivity(intent);
+                } else  if (microsoft.equals("Microsoft")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://support.microsoft.com/en-us/warranty"));
+                    startActivity(intent);
+                } else  if (acer.equals("Acer")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://service.acer.com/warranty/en/US"));
                     startActivity(intent);
                 }
             }
