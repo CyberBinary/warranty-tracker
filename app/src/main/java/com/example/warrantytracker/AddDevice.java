@@ -124,8 +124,8 @@ public class AddDevice extends AppCompatActivity {
                 }
                 saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), warrantyMonthsVal, warrantyYearsVal);
                 // display time remaining on device's recyclerview card
-                TextView dateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
-                dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());
+                //TextView dateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+                //dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());
             }
         });
 
@@ -469,6 +469,7 @@ public class AddDevice extends AppCompatActivity {
             case 1:
                 if(resultCode == RESULT_OK){
                     newImage = imageReturnedIntent.getData();
+                    extraPhotoURI = newImage;
                     newImageString = newImage.toString();
                     imageEdited = true;
                     imageButton.setImageURI(newImage);
