@@ -1,11 +1,13 @@
 package com.example.warrantytracker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Notification;
@@ -220,6 +222,28 @@ public class AddDevice extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void scheduleNotification(Device device) {
+        Calendar calendar2 = Calendar.getInstance();
+        int years = device.warrantyYears;
+        calendar2.add(Calendar.YEAR, years);
+        int months = device.warrantyMonths;
+        calendar2.add(Calendar.MONTH, months);
+        int daysBetween = 365;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
+
+        }
+        Intent intent = new Intent(getApplicationContext(), Notification.class);
+        intent.putExtra("titleExtra", device.deviceName);
+        intent.putExtra("textExtra", "This item's warranty is ending soon!");
+        intent.putExtra("idExtra", device.deviceID);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent);
+        Toast.makeText(getApplicationContext(), "Scheduled ", Toast.LENGTH_LONG).show();
+    }
+
     /////////////////////////////////////
     // Sets the current date automatically
     // to the date text box.
@@ -249,15 +273,15 @@ public class AddDevice extends AppCompatActivity {
                 calendar2.set(year , month, day);
                 EditText warrantyMonths = findViewById(R.id.warrantyMonths);
                 EditText warrantyYears = findViewById(R.id.warrantyYears);
-                int years = Integer.parseInt(warrantyYears.getText().toString());
-                calendar2.add(Calendar.YEAR, years);
-                int months = Integer.parseInt(warrantyMonths.getText().toString());
-                calendar2.add(Calendar.MONTH, months);
+                //int years = Integer.parseInt(warrantyYears.getText().toString());
+                //calendar2.add(Calendar.YEAR, years);
+                //int months = Integer.parseInt(warrantyMonths.getText().toString());
+                //calendar2.add(Calendar.MONTH, months);
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
-                    TextView timeRemaining = findViewById(R.id.timeRemaining);
-                    timeRemaining.setText(daysBetween + " days remaining");
+                    //TextView timeRemaining = findViewById(R.id.timeRemaining);
+                    //timeRemaining.setText(daysBetween + " days remaining");
                 }
 
                 String date = makeDateString(day, month, year);
