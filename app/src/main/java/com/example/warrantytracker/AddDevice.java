@@ -129,9 +129,9 @@ public class AddDevice extends AppCompatActivity {
                     warrantyMonthsVal = Integer.parseInt(warrantyMonths.getText().toString());
                 }
                 saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), warrantyMonthsVal, warrantyYearsVal);
-                // display time remaining on device's recyclerview card
+                /*// display time remaining on device's recyclerview card
                 TextView dateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
-                dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());
+                dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());*/
             }
         });
 
@@ -309,8 +309,8 @@ public class AddDevice extends AppCompatActivity {
                 calendar.set(year, month, day);
                 Calendar calendar2 = Calendar.getInstance();
                 calendar2.set(year , month, day);
-                EditText warrantyMonths = findViewById(R.id.warrantyMonths);
-                EditText warrantyYears = findViewById(R.id.warrantyYears);
+                // EditText warrantyMonths = findViewById(R.id.warrantyMonths);
+                // EditText warrantyYears = findViewById(R.id.warrantyYears);
                 //int years = Integer.parseInt(warrantyYears.getText().toString());
                 //calendar2.add(Calendar.YEAR, years);
                 //int months = Integer.parseInt(warrantyMonths.getText().toString());
@@ -337,7 +337,7 @@ public class AddDevice extends AppCompatActivity {
 
     }
 
-    private void timeRemaining(){
+    /* private void timeRemaining(){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             Calendar calendar2 = Calendar.getInstance();
             calendar2.set(0,0,0);
@@ -346,7 +346,7 @@ public class AddDevice extends AppCompatActivity {
             timeRemaining.setText(daysBetween + " days remaining");
         }
         return;
-    }
+    } */
 
     ////////////////////////////////////
     // Format for the date shown
