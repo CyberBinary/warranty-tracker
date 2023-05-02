@@ -2,6 +2,7 @@ package com.example.warrantytracker;
 
 /* import static com.example.warrantytracker.R.id.sortBy; */
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -63,11 +65,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         // Button will take you to addDevice page
         ///////////////////////////////////////////////////////
 
+        // changes color of button after clicking
+        int colorOnClick = Color.parseColor("#0000a5");
+        int colorOffClick = Color.parseColor("#2068FF");
+
         FloatingActionButton addDevice=findViewById(R.id.addDevice);
         addDevice.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v){
                 System.out.println("Button Clicked");
+                addDevice.setBackgroundColor(colorOnClick);
                 // DEPRECATED API, UPDATE TO ACTIVITY RESULT API IN FUTURE
                 Intent addDeviceIntent=new Intent(getApplicationContext(),AddDevice.class);
                 startActivityForResult(addDeviceIntent,1);
@@ -76,20 +83,27 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             }
         });
 
-        // sort by name
+        // initiate sorting buttons
         Button sortName = findViewById(R.id.sortName);
+        Button sortManufacturer = findViewById(R.id.sortManufacturer);
+
+        // sort by name
         sortName.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                sortName.setBackgroundColor(colorOnClick);
+                sortManufacturer.setBackgroundColor(colorOffClick);
                 System.out.println("Button Clicked");
                 sortDeviceList(0);
             }
         });
+
         // sort by manufacturer
-        Button sortManufacturer = findViewById(R.id.sortManufacturer);
         sortManufacturer.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                sortManufacturer.setBackgroundColor(colorOnClick);
+                sortName.setBackgroundColor(colorOffClick);
                 System.out.println("Button Clicked");
                 sortDeviceList(1);
             }
