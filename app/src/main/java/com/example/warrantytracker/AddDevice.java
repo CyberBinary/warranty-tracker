@@ -124,13 +124,13 @@ public class AddDevice extends AppCompatActivity {
                 }
                 saveNewDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), warrantyMonthsVal, warrantyYearsVal);
                 // display time remaining on device's recyclerview card
-                TextView dateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
-                dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());
+                //TextView dateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+                //dateOfPurchaseInput.setText(deviceDateOfPurchaseInput.getText().toString());
             }
         });
 
         // autofill input opens manufacturer website
-        linkButton.setOnClickListener(new View.OnClickListener() {
+        /*linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String manufacturer1 = "LG";
@@ -148,7 +148,7 @@ public class AddDevice extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
+        }); */
 
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
