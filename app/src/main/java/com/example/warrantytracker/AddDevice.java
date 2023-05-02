@@ -3,6 +3,7 @@ package com.example.warrantytracker;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 
 import android.app.Activity;
@@ -20,11 +21,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -45,9 +43,7 @@ import com.example.warrantytracker.database.Device;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import android.app.Service;
@@ -65,6 +61,9 @@ public class AddDevice extends AppCompatActivity {
     Uri newImage;
     String newImageString;
     boolean imageEdited = false;
+
+    private NotificationManagerCompat notificationManager;
+
     //////////////////////////////////////////////
     // On create, loads add_device.xml layout
     // creates text inputs, creates buttons
@@ -82,7 +81,7 @@ public class AddDevice extends AppCompatActivity {
         // date picker button
         ////////////////////////////////////////////////////
         intDatePicker();
-        dateButton = findViewById(R.id.dateOfPurchaseInput);
+        dateButton = findViewById(R.id.deviceTimeRemaining);
         dateButton.setText(getTodaysDate());
 
         ///////////////////////////////////////
@@ -92,17 +91,25 @@ public class AddDevice extends AppCompatActivity {
         final EditText deviceNameInput = findViewById(R.id.nameInput);
         final EditText deviceManufacturerInput = findViewById(R.id.manufacturerInput);
         final EditText deviceSerialInput = findViewById(R.id.serialInput);
-        final Button deviceDateOfPurchaseInput = findViewById(R.id.dateOfPurchaseInput);
+        final Button deviceDateOfPurchaseInput = findViewById(R.id.deviceTimeRemaining);
         final Button linkButton = findViewById(R.id.linkButton);
         final TextView timeRemaining = findViewById(R.id.timeRemaining);
         final EditText warrantyMonths = findViewById(R.id.warrantyMonths);
         final EditText warrantyYears = findViewById(R.id.warrantyYears);
+
+        deviceDateOfPurchaseInput.setText(makeDateString2(Calendar.getInstance()));
         linkButton.setVisibility(View.GONE);
 
         // changes color of button after clicking
         int colorOnClick = Color.parseColor("#0000a5");
 
         Button saveButton = findViewById(R.id.saveButton);
+
+        ///////////////////////////////////////////////////////
+        // Setup notification channel
+        ///////////////////////////////////////////////////////
+        notificationManager = NotificationManagerCompat.from(this);
+        createNotificationChannel();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,8 +219,7 @@ public class AddDevice extends AppCompatActivity {
         }
         db.deviceDao().insertDevice(device);
 
-        int id = device.deviceID;
-        notificationSet(id);
+        notificationSet(device);
 
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
@@ -221,22 +227,59 @@ public class AddDevice extends AppCompatActivity {
 
     }
 
-    private void notificationSet (int id) {
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("channel1", "notification", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("description");
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void notificationSet (Device device) {
         final String CHANNEL_ID = "channel1";
 
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), "Notification set", duration);
-        toast.show();
+        Toast toast = Toast.makeText(getApplicationContext(), "notification set function", duration);
 
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Test")
-                .setContentText("Test description");
+                .setSmallIcon(R.drawable.baseline_notifications_24)
+                .setContentTitle(device.deviceName)
+                .setContentText("This device's warranty is ending soon!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
-        NotificationManager notificationManager = null;
+
+        Notification notification = builder.build();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.notify(id, builder.build());
+            toast.show();
+            NotificationManagerCompat notificationManager2 = NotificationManagerCompat.from(this);
+            notificationManager.notify(device.deviceID, notification);
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void scheduleNotification(Device device) {
+        Calendar calendar2 = Calendar.getInstance();
+        int years = device.warrantyYears;
+        calendar2.add(Calendar.YEAR, years);
+        int months = device.warrantyMonths;
+        calendar2.add(Calendar.MONTH, months);
+        int daysBetween = 365;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
+
+        }
+        Intent intent = new Intent(getApplicationContext(), Notification.class);
+        intent.putExtra("titleExtra", device.deviceName);
+        intent.putExtra("textExtra", "This item's warranty is ending soon!");
+        intent.putExtra("idExtra", device.deviceID);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent);
+        Toast.makeText(getApplicationContext(), "Scheduled ", Toast.LENGTH_LONG).show();
     }
 
     /////////////////////////////////////
@@ -268,15 +311,15 @@ public class AddDevice extends AppCompatActivity {
                 calendar2.set(year , month, day);
                 EditText warrantyMonths = findViewById(R.id.warrantyMonths);
                 EditText warrantyYears = findViewById(R.id.warrantyYears);
-                int years = Integer.parseInt(warrantyYears.getText().toString());
-                calendar2.add(Calendar.YEAR, years);
-                int months = Integer.parseInt(warrantyMonths.getText().toString());
-                calendar2.add(Calendar.MONTH, months);
+                //int years = Integer.parseInt(warrantyYears.getText().toString());
+                //calendar2.add(Calendar.YEAR, years);
+                //int months = Integer.parseInt(warrantyMonths.getText().toString());
+                //calendar2.add(Calendar.MONTH, months);
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     int daysBetween = (int) ChronoUnit.DAYS.between(Calendar.getInstance().getTime().toInstant(), calendar2.toInstant());
-                    TextView timeRemaining = findViewById(R.id.timeRemaining);
-                    timeRemaining.setText(daysBetween + " days remaining");
+                    //TextView timeRemaining = findViewById(R.id.timeRemaining);
+                    //timeRemaining.setText(daysBetween + " days remaining");
                 }
 
                 String date = makeDateString(day, month, year);
@@ -310,20 +353,26 @@ public class AddDevice extends AppCompatActivity {
     // on the recycler list
     ///////////////////////////////////
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + ", " + year;
+        Calendar selected = Calendar.getInstance();
+        selected.set(year, month, day);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date selectedDate = selected.getTime();
+        String strDate = sdf.format(selectedDate);
+        return strDate;
+    }
+    private String makeDateString2(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date selectedDate = calendar.getTime();
+        String strDate = sdf.format(selectedDate);
+        return strDate;
     }
 
     // transform the string above that you get turn it into a calendar object ^^
-    private Calendar makeStringDate(String date){
+    private Calendar makeStringDate(String str_date) throws ParseException {
         Calendar calendar = Calendar.getInstance();
-    //Calendar.getInstance().setTimeInMillis(Long.parseLong(Map.get(strIndex)))
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
-        try {
-            Date parsedDate = dateFormat.parse(date);
-            calendar.setTime(parsedDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = (Date)sdf.parse(str_date);
+        calendar.setTime(date);
         return calendar;
     }
 
