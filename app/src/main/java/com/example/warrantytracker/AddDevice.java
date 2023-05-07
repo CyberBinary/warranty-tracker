@@ -22,8 +22,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -44,14 +42,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
-import android.app.Service;
-
 public class AddDevice extends AppCompatActivity {
-
-    // manufacturers strings for autofill
-    private static final String[] manufacturers = new String[] {
-            "LG", "Samsung", "Dell"
-    };
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
@@ -70,10 +61,6 @@ public class AddDevice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_device);
-
-        AutoCompleteTextView editText = findViewById(R.id.manufacturerInput);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, manufacturers);
-        editText.setAdapter(adapter);
 
         /////////////////////////////////////////////////////
         // date picker button
@@ -133,20 +120,11 @@ public class AddDevice extends AppCompatActivity {
         /*linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String manufacturer1 = "LG";
-                String manufacturer2 = "Samsung";
-                String manufacturer3 = "Dell";
+            // The Saleena pop-off section
+                //String url = "https://www.lg.com/us/support/repair-service/schedule-repair-continued";
+                //Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                //startActivity(urlIntent);
 
-                if (manufacturer1.equals("LG")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.lg.com/us/support/repair-service/schedule-repair-continued"));
-                    startActivity(intent);
-                } else if (manufacturer2.equals("Samsung")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.samsung.com/us/support/warranty/"));
-                    startActivity(intent);
-                } else  if (manufacturer3.equals("Dell")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.dell.com/support/home/en-us?app=warranty"));
-                    startActivity(intent);
-                }
             }
         }); */
 

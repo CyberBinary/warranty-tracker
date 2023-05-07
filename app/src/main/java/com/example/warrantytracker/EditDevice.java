@@ -19,11 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -49,7 +45,6 @@ public class EditDevice extends AppCompatActivity {
     boolean imageEdited = false;
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
-    private Bundle savedInstanceState;
 
     private NotificationManagerCompat notificationManager;
 
@@ -106,8 +101,6 @@ public class EditDevice extends AppCompatActivity {
                 editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonths.getText().toString()), Integer.parseInt(warrantyYears.getText().toString()));
             }
         });
-
-        // open manufacturer website
         Button linkButton = findViewById(R.id.linkButton);
         linkButton.setVisibility(View.VISIBLE);
         linkButton.setOnClickListener(new View.OnClickListener() {
@@ -121,10 +114,6 @@ public class EditDevice extends AppCompatActivity {
             }
         });
     }
-
-    // back button from webview
-
-
 
     //////////////////////////////////////////////////////////////
     // takes device input pulled above and saves it to the database

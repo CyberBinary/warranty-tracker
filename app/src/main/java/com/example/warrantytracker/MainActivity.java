@@ -1,7 +1,5 @@
 package com.example.warrantytracker;
 
-/* import static com.example.warrantytracker.R.id.sortBy; */
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,17 +15,14 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 
 import com.example.warrantytracker.database.AppDatabase;
 import com.example.warrantytracker.database.Device;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -63,20 +58,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         // Button will take you to addDevice page
         ///////////////////////////////////////////////////////
 
-        FloatingActionButton addDevice=findViewById(R.id.addDevice);
+        Button addDevice=findViewById(R.id.addDevice);
         addDevice.setOnClickListener(new View.OnClickListener(){
 
-            public void onClick(View v){
-                System.out.println("Button Clicked");
-                // DEPRECATED API, UPDATE TO ACTIVITY RESULT API IN FUTURE
-                Intent addDeviceIntent=new Intent(getApplicationContext(),AddDevice.class);
-                startActivityForResult(addDeviceIntent,1);
-                deviceListAdapter.update();
-                deviceListAdapter.notifyDataSetChanged();
-            }
+public void onClick(View v){
+        System.out.println("Button Clicked");
+        // DEPRECATED API, UPDATE TO ACTIVITY RESULT API IN FUTURE
+        Intent addDeviceIntent=new Intent(getApplicationContext(),AddDevice.class);
+        startActivityForResult(addDeviceIntent,1);
+        deviceListAdapter.update();
+        deviceListAdapter.notifyDataSetChanged();
+        }
         });
 
-        // sort by name
         Button sortName = findViewById(R.id.sortName);
         sortName.setOnClickListener(new View.OnClickListener() {
 
@@ -85,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 sortDeviceList(0);
             }
         });
-        // sort by manufacturer
         Button sortManufacturer = findViewById(R.id.sortManufacturer);
         sortManufacturer.setOnClickListener(new View.OnClickListener() {
 
@@ -94,33 +87,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 sortDeviceList(1);
             }
         });
-
-        /* // sort dropdown button
-        Button sortBy = findViewById(R.id.sortBy);
-        sortBy.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(MainActivity.this, sortBy);
-                popup.getMenuInflater().inflate(R.menu.menu_main, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.sortName:
-                                System.out.println("Button Clicked");
-                                sortDeviceList(0);
-                                return true;
-                            case R.id.sortManufacturer:
-                                System.out.println("Button Clicked");
-                                sortDeviceList(1);
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
-            }
-        })); */
-
         initRecyclerView();
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
