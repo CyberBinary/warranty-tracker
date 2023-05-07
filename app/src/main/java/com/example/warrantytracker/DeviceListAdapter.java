@@ -125,7 +125,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         ImageView deviceImage;
         TextView deviceName;
         TextView deviceManufacturer;
-        TextView dateOfPurchaseInput;
 
         TextView deviceTimeRemaining;
 

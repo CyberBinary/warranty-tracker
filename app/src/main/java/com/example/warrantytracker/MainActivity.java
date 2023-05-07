@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.removeItemDecoration(dividerItemDecoration);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         deviceListAdapter = new DeviceListAdapter(this, this);
         recyclerView.setAdapter(deviceListAdapter);
     }

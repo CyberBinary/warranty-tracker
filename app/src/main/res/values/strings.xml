@@ -16,9 +16,4 @@
         <item>Two</item>
         <item>Three</item>
     </string-array>
-    <string-array name="manufacturers">
-        <item>LG</item>
-        <item>Samsung</item>
-        <item>Acer</item>
-    </string-array>
 </resources>

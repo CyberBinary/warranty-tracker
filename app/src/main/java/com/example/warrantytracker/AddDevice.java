@@ -340,32 +340,32 @@ public class AddDevice extends AppCompatActivity {
 
     private String getMonthFormat(int month) {
         if(month == 1)
-            return "January";
+            return "JAN";
         if(month == 2)
-            return "February";
+            return "FEB";
         if(month == 3)
-            return "March";
+            return "MAR";
         if(month == 4)
-            return "April";
+            return "APR";
         if(month == 5)
-            return "May";
+            return "MAY";
         if(month == 6)
-            return "June";
+            return "JUN";
         if(month == 7)
-            return "July";
+            return "JUL";
         if(month == 8)
-            return "August";
+            return "AUG";
         if(month == 9)
-            return "September";
+            return "SEP";
         if(month == 10)
-            return "October";
+            return "OCT";
         if(month == 11)
-            return "November";
+            return "NOV";
         if(month == 12)
-            return "December";
+            return "DEC";
 
         //default
-        return "January";
+        return "JAN";
     }
 
 
