@@ -44,14 +44,8 @@ public class WebViewActivity extends AppCompatActivity {
             case "samsung":
                 webView.loadUrl("https://www.samsung.com/us/support/warranty/");
                 break;
-            case "sony":
-                webView.loadUrl("https://us.esupport.sony.com/support/s/service?language=en_US");
-                break;
             case "dell":
                 webView.loadUrl("https://www.dell.com/support/home/en-us?app=warranty");
-                break;
-            case "asus":
-                webView.loadUrl("https://www.asus.com/us/support/warranty-status-inquiry/");
                 break;
         }
         WebSettings webSettings = webView.getSettings();
@@ -78,6 +72,11 @@ public class WebViewActivity extends AppCompatActivity {
                         webView.loadUrl("javascript:(function() { document.getElementById('purchasedDate').value = '" + device.deviceDateOfPurchase + "'; ;})()");
                         System.out.println("AUTOFILL");
                         break;
+                    // case "dell":
+                        /* webView.loadUrl("javascript:(function() { document.getElementById('search-keyword').value = '" + device.deviceName + "'; ;})()"); *///webView.loadUrl("javascript:(function() { document.getElementById('inpEntrySelection').value = '" + device.deviceSerial + "'; ;})()");
+                        /* webView.loadUrl("javascript:(function() { document.getElementById('purchasedDate').value = '" + device.deviceDateOfPurchase + "'; ;})()"); */
+                    //    System.out.println("AUTOFILL");
+                    //    break;
                 }
             }
         });

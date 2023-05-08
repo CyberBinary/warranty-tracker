@@ -135,7 +135,7 @@ public class AddDevice extends AppCompatActivity {
             }
         });
 
-        // autofill input opens manufacturer website
+        /* // autofill input opens manufacturer website
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,7 +186,7 @@ public class AddDevice extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
+        }); */
 
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
