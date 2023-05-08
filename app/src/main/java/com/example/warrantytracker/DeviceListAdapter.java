@@ -76,12 +76,16 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         if (this.deviceList.get(position).deviceImage != null && holder.deviceImage != null) {
             holder.deviceImage.setImageURI(Uri.parse(this.deviceList.get(position).deviceImage));
         }
-        holder.deviceTimeRemaining.setText(daysRemaining(this.deviceList.get(position)));
+        try {
+            holder.deviceTimeRemaining.setText(daysRemaining(this.deviceList.get(position)));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private String daysRemaining(Device device){
+    private String daysRemaining(Device device) throws ParseException {
         Calendar calendar2 = Calendar.getInstance();
-
+        calendar2 = makeStringDate(device.deviceDateOfPurchase);
         int years = device.warrantyYears;
         calendar2.add(Calendar.YEAR, years);
         int months = device.warrantyMonths;
@@ -136,8 +140,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
             deviceTimeRemaining = view.findViewById(R.id.deviceTimeRemaining);
 
             AppDatabase db = AppDatabase.getDbInstance(context);
-            List<Device> deviceList = db.deviceDao().getAllDevices();
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

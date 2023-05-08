@@ -77,12 +77,14 @@ public class EditDevice extends AppCompatActivity {
         final Button deviceDateOfPurchaseInput = findViewById(R.id.deviceTimeRemaining);
         final ImageButton deviceImage = findViewById(R.id.imageButton);
         final TextView timeRemaining = findViewById(R.id.timeRemaining);
-        final EditText warrantyMonths = findViewById(R.id.warrantyMonths);
-        final EditText warrantyYears = findViewById(R.id.warrantyYears);
+        final EditText warrantyMonthsInput = findViewById(R.id.warrantyMonths);
+        final EditText warrantyYearsInput = findViewById(R.id.warrantyYears);
         deviceNameInput.setText(device.deviceName);
         deviceManufacturerInput.setText(device.manufacturer);
         deviceSerialInput.setText(device.deviceSerial);
         deviceDateOfPurchaseInput.setText(device.deviceDateOfPurchase);
+        warrantyMonthsInput.setText(Integer.toString(device.warrantyMonths));
+        warrantyYearsInput.setText(Integer.toString(device.warrantyYears));
         if (device.deviceImage != null) {
             deviceImage.setImageURI(Uri.parse(device.deviceImage));
         }
@@ -98,7 +100,7 @@ public class EditDevice extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonths.getText().toString()), Integer.parseInt(warrantyYears.getText().toString()));
+                editDevice(deviceNameInput.getText().toString(), deviceManufacturerInput.getText().toString(), deviceSerialInput.getText().toString(), deviceDateOfPurchaseInput.getText().toString(), timeRemaining.getText().toString(), Integer.parseInt(warrantyMonthsInput.getText().toString()), Integer.parseInt(warrantyYearsInput.getText().toString()));
             }
         });
         Button linkButton = findViewById(R.id.linkButton);

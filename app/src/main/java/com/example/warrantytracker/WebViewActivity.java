@@ -64,6 +64,10 @@ public class WebViewActivity extends AppCompatActivity {
                         webView.loadUrl("javascript:(function() { document.getElementById('purchasedDate').value = '" + device.deviceDateOfPurchase + "'; ;})()");
                         System.out.println("AUTOFILL");
                         break;
+                    case "dell":
+                        webView.loadUrl("javascript:(function() { document.getElementById('inpEntrySelection').value = '" + device.deviceSerial + "'; ;})()");
+                    case "asus":
+                        webView.loadUrl("javascript:(function() { document.getElementById('warrantyNumber').value = '" + device.deviceSerial + "'; ;})()");
                 }
             }
         });

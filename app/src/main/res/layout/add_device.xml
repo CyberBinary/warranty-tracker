@@ -5,39 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/nameInput"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:minWidth="360dp"
-        android:minHeight="40dp"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/serialInput"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:ems="10"
-        android:hint="Serial Number"
-        android:inputType="textPersonName"
-        android:minWidth="360dp"
-        android:minHeight="50dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manufacturerInput" />
-
     <!-- old image button
     <ImageButton
         android:id="@+id/imageButton"
@@ -51,6 +18,40 @@
         tools:layout_editor_absoluteY="16dp" /> -->
 
     <!-- save device button -->
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:minWidth="360dp"
+        android:minHeight="40dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.016" />
+
+    <EditText
+        android:id="@+id/serialInput"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Serial Number"
+        android:inputType="textPersonName"
+        android:minWidth="360dp"
+        android:minHeight="50dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manufacturerInput" />
 
     <Button
         android:id="@+id/linkButton"
@@ -83,20 +84,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
-
-    <Button
-        android:id="@+id/linkButton"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Visit Manufacturer Website"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manufacturerInput"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/nameInput"
+        app:layout_constraintVertical_bias="0.148" />
 
     <EditText
         android:id="@+id/manufacturerInput"
@@ -104,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="26dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginBottom="296dp"
         android:ems="10"
         android:hint="Manufacturer"
         android:inputType="textPersonName"
@@ -113,41 +102,20 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/dateOfPurchaseInput"
-        style="?android:spinnerStyle"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/rounded_edit_text"
-        android:ems="10"
-        android:minHeight="30dp"
-        android:onClick="openDatePicker"
-        android:paddingLeft="15dp"
-        android:text="January 1, 2022"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/serialInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInput"
-        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -179,28 +147,30 @@
 
     <EditText
         android:id="@+id/warrantyMonths"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:ems="10"
+        android:hint="Warranty Months"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/warrantyYears"
+        app:layout_constraintBottom_toTopOf="@+id/manufacturerInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linkButton"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintTop_toBottomOf="@+id/deviceTimeRemaining" />
 
     <EditText
         android:id="@+id/warrantyYears"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="133dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="13dp"
         android:ems="10"
+        android:hint="Warranty Years"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/manufacturerInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linkButton"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintStart_toEndOf="@+id/warrantyMonths"
+        app:layout_constraintTop_toBottomOf="@+id/deviceTimeRemaining"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

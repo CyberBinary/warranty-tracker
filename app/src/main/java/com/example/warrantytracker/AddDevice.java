@@ -194,7 +194,7 @@ public class AddDevice extends AppCompatActivity {
 
         Notification notification = builder.build();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            toast.show();
+            //toast.show();
             NotificationManagerCompat notificationManager2 = NotificationManagerCompat.from(this);
             notificationManager.notify(device.deviceID, notification);
         }
@@ -409,7 +409,7 @@ public class AddDevice extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // User clicked Gallery button
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
             }
         });
@@ -439,6 +439,7 @@ public class AddDevice extends AppCompatActivity {
                         newImage = imageReturnedIntent.getData();
                         newImageString = newImage.toString();
                         imageEdited = true;
+                        extraPhotoURI = newImage;
                         imageButton.setImageURI(newImage);
                     }
                 }
@@ -446,10 +447,11 @@ public class AddDevice extends AppCompatActivity {
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
-                    newImage = imageReturnedIntent.getData();
-                    newImageString = newImage.toString();
+                    extraPhotoURI = imageReturnedIntent.getData();
+                    newImageString = extraPhotoURI.toString();
                     imageEdited = true;
-                    imageButton.setImageURI(newImage);
+                    imageButton.setImageURI(extraPhotoURI);
+                    getContentResolver().takePersistableUriPermission(extraPhotoURI, (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
                 }
                 break;
         }
